@@ -5,7 +5,7 @@ class OnlineBadge extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				<div className="small-badge">
+				<div className="small-badge medium-shadow">
 					<div className="small-badge-text">
 						{this.state.onlineNow} online now!
 					</div>

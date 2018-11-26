@@ -7,8 +7,7 @@ class MenuItem extends Component {
 			<React.Fragment>
 				<div
 					disabled={this.props.disabled}
-					className="header-menu-item"
-					style={{ visibility: this.state.visibility }}
+					className="menu-item small-shadow"
 					onClick={this.props.onClick}
 				>
 					{this.props.text}

@@ -4,22 +4,28 @@ import MarkerIcon from "../resources/graphics/marker.png";
 
 class Marker extends Component {
 	//todo set size according to count!
-	constructor(props) {
-		super(props);
-		this.state = {
-			count: this.props.count,
-			top: this.props.y,
-			left: this.props.x
-		};
+	componentWillMount() {
+		this.setState(
+			{
+				count: this.props.count
+			},
+			this.getPosition
+		);
 	}
 
-	adjustPin = e => {
-		let height = e.target.offsetHeight;
-		let width = e.target.offsetWidth;
-		console.log(width, height);
+	getPosition = () => {
+		let windowWidth = document.documentElement.clientWidth;
+		let windowHeight = document.documentElement.clientHeight;
+
+		let y = (this.props.y / windowHeight) * 100;
+		y = +y.toFixed(2);
+		let x = (this.props.x / windowWidth) * 100;
+		x = +x.toFixed(2);
+
+		console.log(x, y);
 		this.setState({
-			top: this.state.top - height,
-			left: this.state.left - width / 2
+			top: `${y}vh`,
+			left: `${x}vw`
 		});
 	};
 
@@ -30,12 +36,12 @@ class Marker extends Component {
 					style={{ top: this.state.top, left: this.state.left }}
 					className="marker-wrapper"
 				>
-					<img
-						onLoad={e => this.adjustPin(e)}
-						className="marker-image"
-						src={MarkerIcon}
-					/>
-					<div className="marker-number">{this.props.count}</div>
+					<div className="marker">
+						<img className="marker-image" src={MarkerIcon} />
+						<div className="marker-number small-shadow">
+							{this.props.count}
+						</div>
+					</div>
 				</div>
 			</React.Fragment>
 		);
@@ -79,12 +85,18 @@ class Map extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				<img src={logo} className="map-img" alt="World map" />
-				<div
-					onClick={e => this.testAddMarker(e)}
-					className="map-img-overlay"
-				>
-					{this.generateMarkers()}
+				<div className="map-wrapper">
+					<img
+						src={logo}
+						className="map-img medium-shadow"
+						alt="World map"
+					/>
+					<div
+						onClick={e => this.testAddMarker(e)}
+						className="map-img-overlay"
+					>
+						{this.generateMarkers()}
+					</div>
 				</div>
 			</React.Fragment>
 		);
