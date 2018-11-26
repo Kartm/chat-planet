@@ -252,7 +252,7 @@ img {
 }
 
 .nickname {
-	font-size: 1.5vmin;
+	font-size: 3vmin;
 	display: flex;
 	font-weight: 100;
 	align-self: center;
@@ -267,6 +267,23 @@ img {
 	text-align: center;
 }
 
+.small-link {
+	display: inline;
+	font-size: 0.9vmin;
+	font-weight: 100;
+	align-self: center;
+	text-align: center;
+}
+
+.small-link:link {
+	color: #a89a70;
+	text-decoration: none;
+}
+
+.small-link:visited {
+	color: rgb(221, 215, 187);
+}
+
 .join-button {
 	font-size: 2vmin;
 	display: flex;
@@ -274,4 +291,25 @@ img {
 	text-align: center;
 	margin-top: 4px;
 	margin-bottom: 4px;
+	font-family: "Montserrat", sans-serif;
+	font-weight: 100;
+	border-radius: 6px;
+	border-color: #d8d8d840;
+	border-width: 1px;
+	background-color: #31302e;
+	outline: none;
+	color: rgb(221, 215, 187);
+}
+
+#nicknameInput {
+	border-radius: 6px;
+	border-color: #d8d8d840;
+	border-width: 1px;
+	background-color: #31302e;
+	outline: none;
+	font-family: "Montserrat", sans-serif;
+	font-size: 3vmin;
+	font-weight: 800;
+	color: rgb(221, 215, 187);
+	text-align: center;
 }

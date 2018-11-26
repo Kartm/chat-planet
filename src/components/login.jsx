@@ -6,20 +6,21 @@ class Login extends Component {
 		this.nicknameInput = React.createRef();
 	}
 
-	state = {
-		countryCode: "US",
-		countryName: null,
-		nickname: null,
-		loggedIn: false
-	}; //! should I use null here?
+	componentWillMount() {
+		this.setState({
+			countryCode: "US",
+			countryName: null,
+			nickname: null,
+			loggedIn: false
+		});
+	}
 
 	getCountry = e => {
 		e.preventDefault();
 		console.log("Fetching geo location...");
 		let apiKey = "5ba35f485d4b8400896223f0e95bc87e";
 		fetch(
-			`http://api.ipstack.com/31.42.13.108?access_key=${apiKey}
-            &format=1&language=en`
+			`http://api.ipstack.com/31.42.13.108?access_key=${apiKey}&format=1&language=en`
 		)
 			.then(response => {
 				if (response.ok) {
@@ -28,7 +29,8 @@ class Login extends Component {
 					throw new Error("Error while fetching the country");
 				}
 			})
-			.then(data =>
+			.then(data => {
+				console.log(data);
 				this.setState(
 					{
 						countryCode: data.country_code,
@@ -36,8 +38,8 @@ class Login extends Component {
 						nickname: this.nicknameInput.current.value
 					},
 					this.setState({ loggedIn: true })
-				)
-			);
+				);
+			});
 		return false;
 	};
 
@@ -48,17 +50,26 @@ class Login extends Component {
 					{!this.state.loggedIn && (
 						<div className="center-content">
 							<form className="login-form">
-								<input ref={this.nicknameInput} type="text" />
+								<input
+									id="nicknameInput"
+									ref={this.nicknameInput}
+									type="text"
+								/>
 								<button
 									style={{ alignSelf: "center" }}
 									className="join-button"
 									onClick={e => this.getCountry(e)}
 								>
-									Join the game!
+									Join!
 								</button>
 								<div className="small-text">
-									By joining the game you're agreeing to our
-									Terms & Conditions.
+									<span>
+										By joining the game you're agreeing to
+										our
+										<a className="small-link" href="#">
+											{" Terms & Conditions."}
+										</a>
+									</span>
 								</div>
 							</form>
 						</div>
