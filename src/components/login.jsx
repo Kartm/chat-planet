@@ -13,10 +13,21 @@ class Login extends Component {
 		loggedIn: false
 	}; //! should I use null here?
 
+	isNicknameValid = nickname => {
+		if (!nickname.length < 0) {
+			return false;
+		}
+		return true;
+	};
+
 	getCountry = e => {
 		e.preventDefault();
-		console.log("test");
-		fetch("https://geoip-db.com/json/")
+		console.log("Fetching geo location...");
+		let apiKey = "5ba35f485d4b8400896223f0e95bc87e";
+		fetch(
+			`http://api.ipstack.com/31.42.13.108?access_key=${apiKey}
+			&format=1&language=en`
+		)
 			.then(response => {
 				if (response.ok) {
 					return response.json();
@@ -44,17 +55,27 @@ class Login extends Component {
 					{!this.state.loggedIn && (
 						<div className="center-content">
 							<form className="login-form">
-								<input ref={this.nicknameInput} type="text" />
+								<input
+									id="nicknameInput"
+									ref={this.nicknameInput}
+									type="text"
+									placeholder="Your nickname"
+								/>
 								<button
 									style={{ alignSelf: "center" }}
 									className="join-button"
 									onClick={e => this.getCountry(e)}
 								>
-									Join the game!
+									Join us!
 								</button>
 								<div className="small-text">
-									By joining the game you're agreeing to our
-									Terms & Conditions.
+									<span>
+										By joining the game you're agreeing to
+										our
+										<a className="small-link" href="#">
+											{" Terms & Conditions."}
+										</a>
+									</span>
 								</div>
 							</form>
 						</div>

@@ -79,14 +79,12 @@ class Map extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				<div className="map-wrapper">
-					<img src={logo} className="map-img" alt="World map" />
-					<div
-						onClick={e => this.testAddMarker(e)}
-						className="map-img-overlay"
-					>
-						{this.generateMarkers()}
-					</div>
+				<img src={logo} className="map-img" alt="World map" />
+				<div
+					onClick={e => this.testAddMarker(e)}
+					className="map-img-overlay"
+				>
+					{this.generateMarkers()}
 				</div>
 			</React.Fragment>
 		);
