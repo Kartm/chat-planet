@@ -3,9 +3,21 @@ import "./App.css";
 import OnlineBadge from "./components/online-badge";
 import MenuItem from "./components/menu-item";
 import Login from "./components/login";
-import Map from "./components/map";
+import Content from "./components/content";
 
 class App extends Component {
+	state = {
+		panel: 2 //0 - world map, 1 - about, 2 - chat
+	};
+
+	changePanel = (e, id) => {
+		if (id >= 0 && id <= 3) this.setState({ panel: id }); //! watch out here
+	};
+
+	loginEvent = (username, location) => {
+		this.setState({ location: location });
+	};
+
 	render() {
 		return (
 			<div className="container">
@@ -16,14 +28,23 @@ class App extends Component {
 				<div className="content">
 					<div className="menu-wrapper">
 						<div className="menu-items">
-							<Login />
-							<MenuItem text="World map" />
-							<MenuItem disabled={true} text="My profile" />
-							<MenuItem text="About" />
+							<Login callback={this.loginEvent} />
+							<MenuItem
+								onClick={e => this.changePanel(e, 0)}
+								text="World map"
+							/>
+							<MenuItem
+								onClick={e => this.changePanel(e, 1)}
+								text="About"
+							/>
+							<MenuItem
+								onClick={e => this.changePanel(e, 2)}
+								text="REMOVE THISSS"
+							/>
 						</div>
 						<div className="menu-vertical-bar" />
 					</div>
-					<Map />
+					<Content panel={this.state.panel} />
 				</div>
 			</div>
 		);

@@ -4,6 +4,7 @@ class Login extends Component {
 	constructor(props) {
 		super(props);
 		this.nicknameInput = React.createRef();
+		this.loginConsole = React.createRef();
 	}
 
 	componentWillMount() {
@@ -15,32 +16,43 @@ class Login extends Component {
 		});
 	}
 
+	isNicknameValid = nickname => {
+		if (nickname.length <= 0) return false;
+		return true;
+	};
+
 	getCountry = e => {
 		e.preventDefault();
-		console.log("Fetching geo location...");
-		let apiKey = "5ba35f485d4b8400896223f0e95bc87e";
-		fetch(
-			`http://api.ipstack.com/31.42.13.108?access_key=${apiKey}&format=1&language=en`
-		)
-			.then(response => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					throw new Error("Error while fetching the country");
-				}
-			})
-			.then(data => {
-				console.log(data);
-				this.setState(
-					{
-						countryCode: data.country_code,
-						countryName: data.country_name,
-						nickname: this.nicknameInput.current.value
-					},
-					this.setState({ loggedIn: true })
-				);
-			});
-		return false;
+		let tempNickname = this.nicknameInput.current.value;
+		if (this.isNicknameValid(tempNickname)) {
+			console.log("Fetching geo location...");
+			let apiKey = "5ba35f485d4b8400896223f0e95bc87e";
+			fetch(
+				`http://api.ipstack.com/31.42.13.108?access_key=${apiKey}&format=1&language=en`
+			)
+				.then(response => {
+					if (response.ok) {
+						return response.json();
+					} else {
+						throw new Error("Error while fetching the country");
+					}
+				})
+				.then(data => {
+					console.log(data);
+					this.setState(
+						{
+							countryCode: data.country_code,
+							countryName: data.country_name,
+							nickname: tempNickname
+						},
+						this.setState({ loggedIn: true })
+					);
+				});
+			return false;
+		} else {
+			this.loginConsole.current.innerHTML =
+				"Invalid nickname. Minimum length is 1 character.";
+		}
 	};
 
 	render() {
@@ -51,9 +63,10 @@ class Login extends Component {
 						<div className="center-content">
 							<form className="login-form">
 								<input
-									id="nicknameInput"
+									className="nickname-input"
 									ref={this.nicknameInput}
 									type="text"
+									placeholder="Your nickname"
 								/>
 								<button
 									style={{ alignSelf: "center" }}
@@ -71,6 +84,10 @@ class Login extends Component {
 										</a>
 									</span>
 								</div>
+								<div
+									className="small-text text-italic"
+									ref={this.loginConsole}
+								/>
 							</form>
 						</div>
 					)}

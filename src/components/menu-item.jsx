@@ -6,7 +6,6 @@ class MenuItem extends Component {
 		return (
 			<React.Fragment>
 				<div
-					disabled={this.props.disabled}
 					className="menu-item small-shadow"
 					onClick={this.props.onClick}
 				>

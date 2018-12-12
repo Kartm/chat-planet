@@ -37,6 +37,7 @@ html,
 	flex-direction: row;
 	text-align: center;
 	height: 100%;
+	overflow: hidden;
 }
 
 .menu-wrapper {
@@ -284,6 +285,25 @@ img {
 	color: rgb(221, 215, 187);
 }
 
+.text-italic {
+	font-style: italic;
+	font-size: 0.85vmin;
+	color: rgb(226, 204, 107);
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+
+.content-wrapper {
+	display: flex;
+	/*background-color: #84ffa3;*/
+	position: relative;
+	margin: auto;
+	justify-content: center;
+	align-content: center;
+	height: 100%;
+	width: 100%;
+}
+
 .join-button {
 	font-size: 2vmin;
 	display: flex;
@@ -301,15 +321,208 @@ img {
 	color: rgb(221, 215, 187);
 }
 
-#nicknameInput {
+.nickname-input {
 	border-radius: 6px;
 	border-color: #d8d8d840;
 	border-width: 1px;
 	background-color: #31302e;
 	outline: none;
 	font-family: "Montserrat", sans-serif;
-	font-size: 3vmin;
+	font-size: 2.2vmin;
 	font-weight: 800;
 	color: rgb(221, 215, 187);
 	text-align: center;
+}
+
+.about {
+	display: flex;
+	align-self: center;
+	flex-direction: column;
+	width: 80vmin;
+	font-family: "Montserrat", sans-serif;
+	border-radius: 15px;
+}
+
+.about-header {
+	background-color: #212325;
+	padding: 1vmin 5vmin 1vmin 5vmin;
+	font-size: 2.5vw;
+	font-weight: 500;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+}
+
+.about-content {
+	overflow: hidden;
+	background-color: #666153;
+	padding: 3vmin 5vmin 3vmin 5vmin;
+}
+
+.about-footer {
+	background-color: #212325;
+	padding: 1vmin 5vmin 1vmin 5vmin;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+}
+
+.fill-image {
+	width: auto;
+	height: 25vh;
+}
+
+.vengel-logo {
+	filter: contrast(0) brightness(1.7) sepia(50%);
+}
+
+.about-logo {
+	filter: contrast(0) brightness(1.5) sepia(100%);
+	width: auto;
+	height: 7vh;
+}
+
+.portfolio-wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+.portfolio-website {
+	display: flex;
+	align-items: center;
+}
+
+.portfolio-website img,
+.portfolio-github img {
+	margin: 1vmin;
+}
+
+.portfolio-github {
+	display: flex;
+	align-items: center;
+}
+
+.about-link a {
+	display: inline;
+	font-size: 0.9vmin;
+	font-weight: 100;
+	align-self: center;
+	text-align: center;
+}
+
+.about-link:link {
+	color: #d1b150;
+	text-decoration: none;
+}
+
+.about-link:visited {
+	color: #b99329;
+}
+
+.chat-wrapper {
+	display: flex;
+	width: 80%;
+	height: calc(100%-2vmin);
+	margin: 2vmin;
+	flex-direction: column;
+	justify-content: space-between;
+	background-color: #666153;
+	border-radius: 24px;
+}
+
+.chat-wrapper div {
+	-webkit-user-select: auto;
+	-khtml-user-select: auto;
+	-moz-user-select: auto;
+	-o-user-select: auto;
+	user-select: auto;
+}
+
+.chat-header-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #131414;
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+	width: 100%;
+	height: 4vmin;
+	font-family: "Montserrat", sans-serif;
+	font-size: 2vmin;
+}
+
+.chat-text-wrapper {
+	display: flex;
+	justify-self: flex-start;
+	justify-content: flex-end;
+	align-self: center;
+	flex-direction: column;
+	width: 98%;
+	padding: 0 2vmin 0 1vmin;
+	flex: 1;
+}
+
+.chat-messages-wrapper {
+	height: 100%;
+	width: 100%;
+	margin-left: 0.5vmin;
+	overflow: hidden;
+	position: relative;
+}
+
+.chat-messages-wrapper-scrollview {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: -2em; /* Increase/Decrease this value for cross-browser compatibility */
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.chat-input-wrapper {
+	display: flex;
+	align-self: center;
+	justify-self: flex-end;
+	align-content: center;
+	justify-content: center;
+	background-color: #131414;
+	width: 100%;
+	height: 6vmin;
+	border-bottom-left-radius: 12px;
+	border-bottom-right-radius: 12px;
+}
+
+.chat-input-form {
+	display: flex;
+	flex-direction: row;
+	padding: 1vmin;
+}
+
+.chat-input-button,
+.chat-input-element {
+	height: auto;
+	margin: 0 1vmin 0 0;
+}
+
+.message {
+	display: flex;
+	background-color: #00000021;
+	height: auto;
+	width: calc(100% - 2em);
+	margin-top: 0.8vh;
+	margin-bottom: 0.8vh;
+	border-radius: 12px;
+	padding: 1vmin;
+}
+
+.chat-header-text {
+	display: flex;
+}
+
+.partner-flag {
+	display: flex;
+	image-rendering: pixelated;
+	height: 100%;
+	margin: 0 1vmin 0 1vmin;
+	border-radius: 15px;
 }
