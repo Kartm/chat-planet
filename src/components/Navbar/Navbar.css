@@ -1,0 +1,9 @@
+.sidebar {
+    margin-left: 1vmin;
+    grid-area: sidebar;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    bottom: 0;
+}

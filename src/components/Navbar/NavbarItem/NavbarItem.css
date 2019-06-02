@@ -1,0 +1,28 @@
+.navbar-item {
+    display: flex;
+    color: rgb(221, 215, 187);
+    height: auto;
+    margin: 16px 0.5vw 0px 0.5vw;
+    padding: 8px;
+    width: auto;
+    background-color: #52565d;
+    justify-content: center;
+    align-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1vw;
+    font-weight: 300;
+    border: 0;
+    border-radius: 4px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    cursor: pointer;
+    outline: none;
+}
+
+.navbar-item:hover {
+    background-color: #292825;
+}
+
+.navbar-item:disabled {
+    background-color: #777777;
+}

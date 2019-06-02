@@ -1,0 +1,12 @@
+.header {
+    display: flex;
+    grid-area: header;
+    background-color: #16181a;
+}
+
+.headerText {
+    font-weight: 900;
+    font-size: 2vw;
+    margin: auto 0 auto 1vw;
+    font-family: 'Montserrat', sans-serif;
+}

@@ -1,28 +1,33 @@
 {
-  "name": "chat-planet",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "apollo-boost": "^0.1.22",
-    "graphql": "^14.0.2",
-    "react": "^16.6.3",
-    "react-apollo": "^2.3.2",
-    "react-dom": "^16.6.3",
-    "react-scripts": "2.1.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+    "name": "chat-planet",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "esri-leaflet": "^2.2.4",
+        "express": "^4.17.0",
+        "leaflet": "^1.5.1",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
+        "react-leaflet": "^2.3.0",
+        "react-scripts": "2.1.1",
+        "socket.io": "^2.2.0",
+        "socket.io-client": "^2.2.0"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "server": "node ./src/Server/server.js"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not ie <= 11",
+        "not op_mini all"
+    ],
+    "devDependencies": {}
 }

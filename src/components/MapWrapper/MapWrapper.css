@@ -1,0 +1,20 @@
+.map-wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.map-wrapper > div {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border-radius: 1vh;
+    background-color: #b9b2a1;
+}
+
+.leaflet-container {
+    background-color: transparent;
+}
+
+.leaflet-pane img {
+    filter: brightness(0.8) contrast(0.8) sepia(0.4);
+}
