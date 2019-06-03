@@ -9,7 +9,11 @@ const Header = props => {
         <div className='header'>
             <div className='headerText small-shadow'>Chat Planet</div>
             <OnlineBadge amount={amount} />
-            <Navbar onTabChange={props.onTabChange} />
+            <Navbar
+                isLoggedIn={props.isLoggedIn}
+                isChatActive={props.isChatActive}
+                onTabChange={props.onTabChange}
+            />
         </div>
     )
 }

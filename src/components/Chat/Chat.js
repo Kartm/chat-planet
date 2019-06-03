@@ -1,15 +1,20 @@
 import React, { Component } from 'react'
 import './Chat.css'
-import Flag from '../Flag/Flag'
+import Flag from '../reusable/Flag/Flag'
 import ChatMessage from './ChatMessage/ChatMessage'
 
 class Chat extends Component {
     renderMessages = () => {
         let result = []
-        this.props.chat.messages.forEach((message, index) => {
-            let isMine = this.props.user.nickname === message.from
+        let { messages } = this.props.chat
+        let { nickname } = this.props.user
+        messages.forEach((message, index) => {
             result.push(
-                <ChatMessage isMine={isMine} message={message} key={index} />
+                <ChatMessage
+                    isMine={nickname === message.from}
+                    message={message}
+                    key={index}
+                />
             )
         })
 

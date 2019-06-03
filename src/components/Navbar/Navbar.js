@@ -19,6 +19,7 @@ class Navbar extends Component {
                     }}
                     text='Start'
                     isActive={this.state.active === 1}
+                    isDisabled={false}
                 />
                 <NavbarItem
                     onClick={() => {
@@ -27,6 +28,7 @@ class Navbar extends Component {
                     }}
                     text='World map'
                     isActive={this.state.active === 2}
+                    isDisabled={!this.props.isLoggedIn}
                 />
                 <NavbarItem
                     onClick={() => {
@@ -35,6 +37,7 @@ class Navbar extends Component {
                     }}
                     text='Chat'
                     isActive={this.state.active === 3}
+                    isDisabled={!this.props.isChatActive}
                 />
             </div>
         )

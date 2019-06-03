@@ -1,0 +1,10 @@
+.sepia-input {
+    margin: 4px 0 8px 0;
+    padding: 4px;
+    color: rgb(221, 215, 187);
+    background-color: rgb(131, 125, 98);
+    border: 0;
+    border-radius: 4px;
+    font-size: 2.5vmin;
+    box-shadow: 3px 3px 6px 0px rgba(0, 0, 0, 0.45);
+}

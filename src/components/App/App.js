@@ -5,11 +5,13 @@ import { Tabs } from './Enums'
 import Header from '../Header/Header'
 import Tab from '../Tab/Tab'
 
+import { LOGIN_RESPONSE } from '../../Server/Events'
 import io from 'socket.io-client'
 const socket = io('http://localhost:3231')
 
 class App extends Component {
     state = {
+        //user: null,
         user: {
             nickname: 'Arach',
             countryCode: 'PL'
@@ -34,11 +36,6 @@ class App extends Component {
                 { timestamp: 1558252685000, from: 'Dezan', content: 'test' },
                 { timestamp: 1558252685000, from: 'Arach', content: 'test' },
                 { timestamp: 1558252685000, from: 'Arach', content: 'test' },
-                {
-                    timestamp: 1558252685000,
-                    from: 'Arach',
-                    content: 'testadasdasdtestadasdasdtestadasdasdtestadasdasd'
-                },
                 { timestamp: 1558252685000, from: 'Arach', content: 'test' },
                 { timestamp: 1558252685000, from: 'Dezan', content: 'test' },
                 { timestamp: 1558252685000, from: 'Dezan', content: 'test' },
@@ -63,8 +60,8 @@ class App extends Component {
         socket.on('connect', () => {
             console.log('Connected to server.')
         })
-        socket.emit('test', () => {
-            console.log('test')
+        socket.on(LOGIN_RESPONSE, data => {
+            console.log(data)
         })
     }
 
@@ -83,6 +80,8 @@ class App extends Component {
                     onTabChange={this.onTabChange}
                     onLogin={this.onLogin}
                     users={this.state.users}
+                    isLoggedIn={this.state.user !== null}
+                    isChatActive={this.state.chat !== null}
                 />
                 <Tab
                     user={this.state.user}

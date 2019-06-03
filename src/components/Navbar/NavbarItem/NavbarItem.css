@@ -23,6 +23,18 @@
     background-color: #292825;
 }
 
-.navbar-item:disabled {
+.navbar-item-disabled {
+    color: rgb(184, 175, 175);
+    background-color: #777777;
+    background: repeating-linear-gradient(
+        45deg,
+        #777777,
+        #777777 10px,
+        #5c5c5c 10px,
+        #5c5c5c 20px
+    );
+}
+
+.navbar-item-disabled:hover {
     background-color: #777777;
 }

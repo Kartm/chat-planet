@@ -1,1 +1,1 @@
-module.exports = { CONNECTION: 'connection' }
+module.exports = { CONNECTION: 'connection', LOGIN_ATTEMPT: 'login_attempt' }
