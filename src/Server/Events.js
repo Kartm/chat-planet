@@ -1,1 +1,5 @@
-module.exports = { CONNECTION: 'connection', LOGIN_ATTEMPT: 'login_attempt' }
+module.exports = {
+    LOGIN_ATTEMPT: 'LOGIN_ATTEMPT',
+    LOGIN_RESPONSE: 'LOGIN_RESPONSE',
+    REFRESH_USERS: 'REFRESH_USERS'
+}

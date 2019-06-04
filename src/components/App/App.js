@@ -5,9 +5,9 @@ import { Tabs } from './Enums'
 import Header from '../Header/Header'
 import Tab from '../Tab/Tab'
 
-import { LOGIN_RESPONSE } from '../../Server/Events'
 import io from 'socket.io-client'
-const socket = io('http://localhost:3231')
+import { REFRESH_USERS } from '../../Server/Events'
+const socketUrl = 'http://localhost:3231'
 
 class App extends Component {
     state = {
@@ -56,12 +56,14 @@ class App extends Component {
     }
 
     componentDidMount() {
-        console.log(socket)
+        const socket = io.connect(socketUrl)
+
         socket.on('connect', () => {
             console.log('Connected to server.')
-        })
-        socket.on(LOGIN_RESPONSE, data => {
-            console.log(data)
+            socket.on(REFRESH_USERS, ({ users }) => {
+                console.log(users)
+                this.setUsers(users)
+            })
         })
     }
 
@@ -71,6 +73,10 @@ class App extends Component {
 
     onLogin = ({ username, location }) => {
         this.setState({ location: location })
+    }
+
+    setUsers = users => {
+        this.setState({ users })
     }
 
     render() {
@@ -84,6 +90,7 @@ class App extends Component {
                     isChatActive={this.state.chat !== null}
                 />
                 <Tab
+                    setUsers={this.setUsers}
                     user={this.state.user}
                     chat={this.state.chat}
                     tab={this.state.tab}

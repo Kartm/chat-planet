@@ -9,6 +9,7 @@ class Start extends Component {
             <React.Fragment>
                 <Banner
                     clickedJoin={this.state.clickedJoin}
+                    setUsers={this.props.setUsers}
                     onClick={() => {
                         this.setState({ clickedJoin: true })
                     }}

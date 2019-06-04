@@ -9,29 +9,29 @@ import io from 'socket.io-client'
 const socket = io('http://localhost:3231')
 
 class About extends Component {
-    state = { nickname: null, loginError: String.fromCharCode(160) }
+    state = { name: null, loginError: String.fromCharCode(160) }
 
     onInputChange = value => {
-        this.setState({ nickname: value })
+        this.setState({ name: value })
     }
 
     verifyLogin = () => {
-        const { nickname } = this.state
-        if (nickname === null) {
+        const { name } = this.state
+        if (name === null) {
             this.setState({
-                loginError: 'Your nickname cannot be empty.'
+                loginError: 'Your name cannot be empty.'
             })
             return false
-        } else if (nickname.length < 3) {
+        } else if (name.length < 3) {
             this.setState({
                 loginError:
-                    'Your nickname is too short. The minimum is 3 characters.'
+                    'Your name is too short. The minimum is 3 characters.'
             })
             return false
-        } else if (nickname.length > 32) {
+        } else if (name.length > 32) {
             this.setState({
                 loginError:
-                    'Your nickname is too long. The maximum is 32 characters.'
+                    'Your name is too long. The maximum is 32 characters.'
             })
             return false
         }
@@ -44,20 +44,24 @@ class About extends Component {
     onLoginAttempt = () => {
         if (this.verifyLogin()) {
             const data = {
-                nickname: this.state.nickname,
+                name: this.state.name,
                 countryCode: 'PL'
             }
 
-            socket.emit(LOGIN_ATTEMPT, data, ({ responseData }) => {
-                console.log(responseData)
-            })
+            socket.emit(LOGIN_ATTEMPT, data)
         }
     }
 
     componentDidMount() {
         //todo inspect this, not working
-        socket.on(LOGIN_RESPONSE, () => {
-            console.log('GOT RESPONSE')
+        socket.on(LOGIN_RESPONSE, ({ response }) => {
+            if (response.error === null) {
+                this.props.setUsers(response.users)
+            } else {
+                this.setState({
+                    loginError: response.error
+                })
+            }
         })
     }
 
@@ -69,7 +73,7 @@ class About extends Component {
                         Your country: <Flag countryCode={'PL'} />
                         <b>Poland</b>
                     </p>
-                    <p>Your nickname:</p>
+                    <p>Your name:</p>
                     <SepiaInput onInputChange={this.onInputChange} />
                     <p className='login-error'>{this.state.loginError}</p>
                     <SepiaButton onClick={() => this.onLoginAttempt()}>

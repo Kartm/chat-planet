@@ -12,7 +12,6 @@ class Flag extends Component {
         fetch(url, { headers: {} })
             .then(response => response.blob())
             .then(image => {
-                console.log(image)
                 this.setState({
                     image: URL.createObjectURL(image),
                     loaded: true

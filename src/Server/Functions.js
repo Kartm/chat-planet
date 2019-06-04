@@ -1,11 +1,11 @@
-const isUsernameInUse = ({ username, users }) => {
-    return username in Object.keys(users)
+const isNameInUse = ({ name, users }) => {
+    return name in users
 }
 
 const addUser = ({ user, users }) => {
     let newUsers = Object.assign({}, users)
-    newUsers[user.nickname] = user
+    newUsers[user.name] = user
     return newUsers
 }
 
-export default { isUsernameInUse, addUser }
+module.exports = { isNameInUse, addUser }

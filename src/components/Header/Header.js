@@ -4,7 +4,7 @@ import Navbar from '../Navbar/Navbar'
 import './Header.css'
 
 const Header = props => {
-    const amount = props.users.length
+    const amount = Object.keys(props.users).length
     return (
         <div className='header'>
             <div className='headerText small-shadow'>Chat Planet</div>

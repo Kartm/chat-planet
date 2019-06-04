@@ -1,17 +1,32 @@
 const io = require('./server.js').io
 
-const { CONNECTION, LOGIN_ATTEMPT, LOGIN_RESPONSE } = require('./Events')
+const { LOGIN_ATTEMPT, LOGIN_RESPONSE, REFRESH_USERS } = require('./Events')
 
-// const { createUser } = require('./Factories')
-// const { addUser } = require('./Functions')
-const { isUsernameInUse, addUser } = require('./Functions').default
+const { createUser } = require('./Factories')
+const { isNameInUse, addUser } = require('./Functions')
 
 let users = {}
 
-module.exports = function(socket) {
-    socket.on(LOGIN_ATTEMPT, (data, callback) => {
-        socket.emit(LOGIN_RESPONSE, data)
-        const responseData = { error: null, data: data }
-        callback({ responseData })
+module.exports = socket => {
+    socket.emit(REFRESH_USERS, { users })
+    socket.on(LOGIN_ATTEMPT, data => {
+        const { name, countryCode } = data
+
+        let response = { error: null, users: null }
+        if (isNameInUse({ name, users })) {
+            response.error = 'Username in use.'
+        } else {
+            const user = createUser(
+                {
+                    name,
+                    countryCode
+                },
+                users
+            )
+            users = addUser({ user, users })
+            response.users = users
+            io.emit(REFRESH_USERS, { users })
+        }
+        socket.emit(LOGIN_RESPONSE, { response })
     })
 }
