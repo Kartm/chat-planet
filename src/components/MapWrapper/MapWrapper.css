@@ -18,3 +18,13 @@
 .leaflet-pane img {
     filter: brightness(0.8) contrast(0.8) sepia(0.4);
 }
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+    background-color: #f3efe5;
+}
+
+.leaflet-popup-content-wrapper .flag {
+    height: 2vmax;
+    width: auto;
+}

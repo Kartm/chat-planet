@@ -13,39 +13,13 @@ class App extends Component {
     state = {
         user: null,
         users: [],
-        tab: Tabs.START, //1 - world map, 2 - about, 3 - chat
+        tab: Tabs.START,
         chat: {
             with: {
-                nickname: 'Dezan',
-                countryCode: 'PL',
-                countryName: 'Poland'
+                name: 'Dezan',
+                countryCode: 'PL'
             },
             messages: [
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' },
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' },
-                { timestamp: 1558252685000, from: 'Dezan', content: 'test' },
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' },
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' },
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' },
-                { timestamp: 1558252685000, from: 'Dezan', content: 'test' },
-                { timestamp: 1558252685000, from: 'Dezan', content: 'test' },
-                { timestamp: 1558252685000, from: 'Dezan', content: 'test' },
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' },
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' },
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' },
-                { timestamp: 1558252685000, from: 'Dezan', content: 'test' },
-                { timestamp: 1558252685000, from: 'Dezan', content: 'test' },
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' },
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' },
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' },
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' },
-                { timestamp: 1558252685000, from: 'Dezan', content: 'test' },
-                { timestamp: 1558252685000, from: 'Dezan', content: 'test' },
-                { timestamp: 1558252685000, from: 'Dezan', content: 'test' },
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' },
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' },
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' },
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' },
                 { timestamp: 1558252685000, from: 'Arach', content: 'test' }
             ]
         }
@@ -60,14 +34,6 @@ class App extends Component {
                 this.setUsers(users)
             })
         })
-    }
-
-    onTabChange = id => {
-        this.setState({ tab: id })
-    }
-
-    onLogin = ({ username, location }) => {
-        this.setState({ location: location })
     }
 
     setUser = user => {
@@ -86,9 +52,10 @@ class App extends Component {
         return (
             <React.Fragment>
                 <Header
-                    onTabChange={this.onTabChange}
+                    setTab={this.setTab}
                     activeTab={this.state.tab}
                     onLogin={this.onLogin}
+                    user={this.state.user}
                     users={this.state.users}
                     isLoggedIn={this.state.user !== null}
                     isChatActive={this.state.chat !== null}
@@ -98,6 +65,7 @@ class App extends Component {
                     setUser={this.setUser}
                     setTab={this.setTab}
                     user={this.state.user}
+                    users={this.state.users}
                     chat={this.state.chat}
                     tab={this.state.tab}
                 />

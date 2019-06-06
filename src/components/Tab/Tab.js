@@ -17,7 +17,7 @@ const Tab = props => {
             )
             break
         case 2:
-            element = <MapWrapper />
+            element = <MapWrapper users={props.users} />
             break
         default:
             element = <Chat user={props.user} chat={props.chat} />

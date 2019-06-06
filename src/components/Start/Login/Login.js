@@ -45,8 +45,7 @@ class About extends Component {
     onLoginAttempt = () => {
         if (this.verifyLogin()) {
             const data = {
-                name: this.state.name,
-                countryCode: 'PL'
+                name: this.state.name
             }
 
             socket.emit(LOGIN_ATTEMPT, data)
@@ -54,12 +53,13 @@ class About extends Component {
     }
 
     componentDidMount() {
-        //todo inspect this, not working
         socket.on(LOGIN_RESPONSE, ({ response }) => {
             if (response.error === null) {
-                this.props.setUsers(response.users)
+                console.log(response.users)
+                //this.props.setUsers(response.users)
                 this.props.setTab(Tabs.WORLDMAP)
                 this.props.setUser(response.user)
+                console.log(response.user)
             } else {
                 this.setState({
                     loginError: response.error
@@ -72,10 +72,6 @@ class About extends Component {
         return (
             <div className='login'>
                 <form>
-                    <p className='login-country'>
-                        Your country: <Flag countryCode={'PL'} />
-                        <b>Poland</b>
-                    </p>
                     <p>Your name:</p>
                     <SepiaInput onInputChange={this.onInputChange} />
                     <p className='login-error'>{this.state.loginError}</p>

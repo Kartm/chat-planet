@@ -12,25 +12,19 @@ class Navbar extends Component {
         return (
             <div className='sidebar'>
                 <NavbarItem
-                    onClick={() => {
-                        this.props.onTabChange(1)
-                    }}
+                    onClick={() => this.props.setTab(Tabs.START)}
                     text='Start'
                     isActive={this.isActive(Tabs.START)}
-                    isDisabled={false}
+                    isDisabled={this.props.isLoggedIn}
                 />
                 <NavbarItem
-                    onClick={() => {
-                        this.props.onTabChange(2)
-                    }}
+                    onClick={() => this.props.setTab(Tabs.WORLDMAP)}
                     text='World map'
                     isActive={this.isActive(Tabs.WORLDMAP)}
                     isDisabled={!this.props.isLoggedIn}
                 />
                 <NavbarItem
-                    onClick={() => {
-                        this.props.onTabChange(3)
-                    }}
+                    onClick={() => this.props.setTab(Tabs.CHAT)}
                     text='Chat'
                     isActive={this.isActive(Tabs.CHAT)}
                     isDisabled={
