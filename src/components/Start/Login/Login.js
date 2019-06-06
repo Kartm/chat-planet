@@ -4,6 +4,7 @@ import Flag from '../../reusable/Flag/Flag'
 import SepiaInput from '../../reusable/SepiaInput/SepiaInput'
 import SepiaButton from '../../reusable/SepiaButton/SepiaButton'
 import { LOGIN_ATTEMPT, LOGIN_RESPONSE } from '../../../Server/Events'
+import { Tabs } from '../../App/Enums'
 
 import io from 'socket.io-client'
 const socket = io('http://localhost:3231')
@@ -57,6 +58,8 @@ class About extends Component {
         socket.on(LOGIN_RESPONSE, ({ response }) => {
             if (response.error === null) {
                 this.props.setUsers(response.users)
+                this.props.setTab(Tabs.WORLDMAP)
+                this.props.setUser(response.user)
             } else {
                 this.setState({
                     loginError: response.error

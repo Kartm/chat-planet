@@ -12,7 +12,7 @@ module.exports = socket => {
     socket.on(LOGIN_ATTEMPT, data => {
         const { name, countryCode } = data
 
-        let response = { error: null, users: null }
+        let response = { user: null, error: null, users: null }
         if (isNameInUse({ name, users })) {
             response.error = 'Username in use.'
         } else {
@@ -25,6 +25,7 @@ module.exports = socket => {
             )
             users = addUser({ user, users })
             response.users = users
+            response.user = data
             io.emit(REFRESH_USERS, { users })
         }
         socket.emit(LOGIN_RESPONSE, { response })

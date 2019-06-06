@@ -8,7 +8,13 @@ const Tab = props => {
     let element
     switch (props.tab) {
         case 1:
-            element = <Start setUsers={props.setUsers} />
+            element = (
+                <Start
+                    setUsers={props.setUsers}
+                    setUser={props.setUser}
+                    setTab={props.setTab}
+                />
+            )
             break
         case 2:
             element = <MapWrapper />

@@ -10,6 +10,8 @@ class Start extends Component {
                 <Banner
                     clickedJoin={this.state.clickedJoin}
                     setUsers={this.props.setUsers}
+                    setUser={this.props.setUser}
+                    setTab={this.props.setTab}
                     onClick={() => {
                         this.setState({ clickedJoin: true })
                     }}

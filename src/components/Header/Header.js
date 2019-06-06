@@ -11,6 +11,7 @@ const Header = props => {
             <OnlineBadge amount={amount} />
             <Navbar
                 isLoggedIn={props.isLoggedIn}
+                activeTab={props.activeTab}
                 isChatActive={props.isChatActive}
                 onTabChange={props.onTabChange}
             />

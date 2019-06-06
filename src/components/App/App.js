@@ -11,11 +11,7 @@ const socketUrl = 'http://localhost:3231'
 
 class App extends Component {
     state = {
-        //user: null,
-        user: {
-            nickname: 'Arach',
-            countryCode: 'PL'
-        },
+        user: null,
         users: [],
         tab: Tabs.START, //1 - world map, 2 - about, 3 - chat
         chat: {
@@ -61,7 +57,6 @@ class App extends Component {
         socket.on('connect', () => {
             console.log('Connected to server.')
             socket.on(REFRESH_USERS, ({ users }) => {
-                console.log(users)
                 this.setUsers(users)
             })
         })
@@ -75,8 +70,16 @@ class App extends Component {
         this.setState({ location: location })
     }
 
+    setUser = user => {
+        this.setState({ user })
+    }
+
     setUsers = users => {
         this.setState({ users })
+    }
+
+    setTab = tab => {
+        this.setState({ tab })
     }
 
     render() {
@@ -84,6 +87,7 @@ class App extends Component {
             <React.Fragment>
                 <Header
                     onTabChange={this.onTabChange}
+                    activeTab={this.state.tab}
                     onLogin={this.onLogin}
                     users={this.state.users}
                     isLoggedIn={this.state.user !== null}
@@ -91,6 +95,8 @@ class App extends Component {
                 />
                 <Tab
                     setUsers={this.setUsers}
+                    setUser={this.setUser}
+                    setTab={this.setTab}
                     user={this.state.user}
                     chat={this.state.chat}
                     tab={this.state.tab}

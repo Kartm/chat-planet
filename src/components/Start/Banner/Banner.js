@@ -5,7 +5,11 @@ import SepiaButton from '../../reusable/SepiaButton/SepiaButton'
 
 const Banner = props => {
     let display = props.clickedJoin ? (
-        <Login setUsers={props.setUsers} />
+        <Login
+            setUsers={props.setUsers}
+            setUser={props.setUser}
+            setTab={props.setTab}
+        />
     ) : (
         <SepiaButton onClick={props.onClick}>JOIN</SepiaButton>
     )

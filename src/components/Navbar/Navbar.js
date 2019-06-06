@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import NavbarItem from './NavbarItem/NavbarItem'
 import './Navbar.css'
+import { Tabs } from '../App/Enums'
 
 class Navbar extends Component {
-    state = { active: 1 }
-
-    onClick = index => {
-        this.setState({ active: index })
+    isActive = tab => {
+        return tab === this.props.activeTab
     }
 
     render() {
@@ -15,29 +14,28 @@ class Navbar extends Component {
                 <NavbarItem
                     onClick={() => {
                         this.props.onTabChange(1)
-                        this.onClick(1)
                     }}
                     text='Start'
-                    isActive={this.state.active === 1}
+                    isActive={this.isActive(Tabs.START)}
                     isDisabled={false}
                 />
                 <NavbarItem
                     onClick={() => {
                         this.props.onTabChange(2)
-                        this.onClick(2)
                     }}
                     text='World map'
-                    isActive={this.state.active === 2}
+                    isActive={this.isActive(Tabs.WORLDMAP)}
                     isDisabled={!this.props.isLoggedIn}
                 />
                 <NavbarItem
                     onClick={() => {
                         this.props.onTabChange(3)
-                        this.onClick(3)
                     }}
                     text='Chat'
-                    isActive={this.state.active === 3}
-                    isDisabled={!this.props.isChatActive}
+                    isActive={this.isActive(Tabs.CHAT)}
+                    isDisabled={
+                        !this.props.isChatActive || !this.props.isLoggedIn
+                    }
                 />
             </div>
         )
