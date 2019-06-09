@@ -12,7 +12,8 @@ const createUser = ({
     socketId,
     countryCode,
     latitude,
-    longitude
+    longitude,
+    status: 'free'
 })
 
 module.exports = {

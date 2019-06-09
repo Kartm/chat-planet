@@ -6,6 +6,7 @@ import SepiaButton from '../../reusable/SepiaButton/SepiaButton'
 const Banner = props => {
     let display = props.clickedJoin ? (
         <Login
+            socket={props.socket}
             setUsers={props.setUsers}
             setUser={props.setUser}
             setTab={props.setTab}

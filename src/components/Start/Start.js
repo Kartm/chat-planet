@@ -8,6 +8,7 @@ class Start extends Component {
         return (
             <React.Fragment>
                 <Banner
+                    socket={this.props.socket}
                     clickedJoin={this.state.clickedJoin}
                     setUsers={this.props.setUsers}
                     setUser={this.props.setUser}

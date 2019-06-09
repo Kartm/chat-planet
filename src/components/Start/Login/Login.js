@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
 import './Login.css'
-import Flag from '../../reusable/Flag/Flag'
 import SepiaInput from '../../reusable/SepiaInput/SepiaInput'
 import SepiaButton from '../../reusable/SepiaButton/SepiaButton'
 import { LOGIN_ATTEMPT, LOGIN_RESPONSE } from '../../../Server/Events'
 import { Tabs } from '../../App/Enums'
-
-import io from 'socket.io-client'
-const socket = io('http://localhost:3231')
 
 class About extends Component {
     state = { name: null, loginError: String.fromCharCode(160) }
@@ -43,6 +39,7 @@ class About extends Component {
     }
 
     onLoginAttempt = () => {
+        const { socket } = this.props
         if (this.verifyLogin()) {
             const data = {
                 name: this.state.name
@@ -53,13 +50,12 @@ class About extends Component {
     }
 
     componentDidMount() {
+        const { socket } = this.props
         socket.on(LOGIN_RESPONSE, ({ response }) => {
             if (response.error === null) {
-                console.log(response.users)
-                //this.props.setUsers(response.users)
+                this.props.setUsers(response.users)
                 this.props.setTab(Tabs.WORLDMAP)
                 this.props.setUser(response.user)
-                console.log(response.user)
             } else {
                 this.setState({
                     loginError: response.error

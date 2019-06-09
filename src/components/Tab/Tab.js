@@ -10,6 +10,7 @@ const Tab = props => {
         case 1:
             element = (
                 <Start
+                    socket={props.socket}
                     setUsers={props.setUsers}
                     setUser={props.setUser}
                     setTab={props.setTab}
@@ -17,7 +18,13 @@ const Tab = props => {
             )
             break
         case 2:
-            element = <MapWrapper users={props.users} />
+            element = (
+                <MapWrapper
+                    user={props.user}
+                    users={props.users}
+                    sendInvitation={props.sendInvitation}
+                />
+            )
             break
         default:
             element = <Chat user={props.user} chat={props.chat} />

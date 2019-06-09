@@ -4,8 +4,14 @@ const isNameInUse = ({ name, users }) => {
 
 const addUser = ({ user, users }) => {
     let newUsers = Object.assign({}, users)
-    newUsers[user.name] = user
+    newUsers[user.id] = user
     return newUsers
 }
 
-module.exports = { isNameInUse, addUser }
+const removeUser = ({ user, users }) => {
+    let newUsers = Object.assign({}, users)
+    delete newUsers[user.id]
+    return newUsers
+}
+
+module.exports = { isNameInUse, addUser, removeUser }

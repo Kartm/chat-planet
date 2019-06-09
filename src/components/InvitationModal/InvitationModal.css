@@ -1,0 +1,42 @@
+.invitation {
+    color: #52565d;
+    background-color: rgb(221, 215, 187);
+    border: 3px solid #16181a;
+    border-radius: 4px;
+    padding: 12px;
+    padding-top: 4px;
+}
+
+.invitation-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 8px;
+}
+
+.invitation-header span {
+    margin-right: 5vmin;
+}
+
+.invitation-header button {
+}
+
+.invitation-content {
+}
+
+.invitation-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.invitation-button {
+}
+
+.invitation-button > .accept {
+    background-color: rgb(81, 138, 49);
+}
+
+.invitation-button > .reject {
+    background-color: rgb(138, 92, 49);
+}
