@@ -1,0 +1,14 @@
+.chat-header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #131414;
+    width: 100%;
+    height: 4vmin;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2vmin;
+}
+
+.chat-header-text {
+    display: flex;
+}

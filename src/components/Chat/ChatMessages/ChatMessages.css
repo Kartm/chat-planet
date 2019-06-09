@@ -1,0 +1,28 @@
+.chat-text-wrapper {
+    display: flex;
+    justify-self: flex-start;
+    justify-content: flex-end;
+    align-self: center;
+    flex-direction: column;
+    width: 98%;
+    padding: 0 2vmin 0 1vmin;
+    flex: 1;
+}
+
+.chat-messages-wrapper {
+    height: 100%;
+    width: 100%;
+    margin-left: 0.5vmin;
+    overflow: hidden;
+    position: relative;
+}
+
+.chat-messages-wrapper-scrollview {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: -2em; /* Increase/Decrease this value for cross-browser compatibility */
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
