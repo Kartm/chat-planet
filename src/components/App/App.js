@@ -10,7 +10,9 @@ import io from 'socket.io-client'
 import {
     REFRESH_USERS,
     INVITATION_GOT,
-    INVITATION_SENT
+    INVITATION_SENT,
+    INVITATION_ACCEPT,
+    CHATROOM_CREATE
 } from '../../Server/Events'
 import Invitation from './Invitation'
 const socketUrl = 'http://localhost:3231'
@@ -22,15 +24,7 @@ class App extends Component {
         socket: null,
         invitation: null,
         tab: Tabs.START,
-        chat: {
-            with: {
-                name: 'Dezan',
-                countryCode: 'PL'
-            },
-            messages: [
-                { timestamp: 1558252685000, from: 'Arach', content: 'test' }
-            ]
-        }
+        chat: null
     }
 
     componentDidMount() {
@@ -47,6 +41,11 @@ class App extends Component {
         socket.on(INVITATION_GOT, ({ invitation }) => {
             this.onInvitationReceive({ invitation })
         })
+
+        socket.on(CHATROOM_CREATE, ({ chat }) => {
+            this.setState({ chat })
+            this.setTab(Tabs.CHAT)
+        })
     }
 
     setUser = user => {
@@ -62,14 +61,15 @@ class App extends Component {
     }
 
     onInvitationReceive = ({ invitation }) => {
-        console.log(invitation)
+        this.setState({ invitation })
     }
 
-    onInvitationAccept = ({ invitation }) => {
-        console.log(invitation)
+    onInvitationAccept = () => {
+        const { socket, invitation } = this.state
+        socket.emit(INVITATION_ACCEPT, { invitation })
     }
 
-    onInvitationReject = () => {
+    onInvitationClose = () => {
         this.setState({ invitation: null })
     }
 
@@ -88,7 +88,7 @@ class App extends Component {
                 <InvitationModal
                     invitation={this.state.invitation}
                     onAccept={this.onInvitationAccept}
-                    onReject={this.onInvitationReject}
+                    onClose={this.onInvitationClose}
                 />
                 <Header
                     setTab={this.setTab}

@@ -3,7 +3,7 @@ import Modal from '../Modal/Modal'
 import './InvitationModal.css'
 
 const InvitationModal = props => {
-    const { onAccept, onReject, invitation } = props
+    const { onAccept, onClose, invitation } = props
     if (invitation === null) return null
     return (
         <Modal>
@@ -14,7 +14,7 @@ const InvitationModal = props => {
                     </span>
                     <button
                         className='invitation-close-button'
-                        onClick={onReject}
+                        onClick={onClose}
                     >
                         &#215;
                     </button>
@@ -24,13 +24,16 @@ const InvitationModal = props => {
                     <div className='invitation-buttons'>
                         <button
                             className='invitation-button accept'
-                            onClick={onAccept}
+                            onClick={() => {
+                                onAccept()
+                                onClose()
+                            }}
                         >
                             Accept
                         </button>
                         <button
                             className='invitation-button reject'
-                            onClick={onReject}
+                            onClick={onClose}
                         >
                             Reject
                         </button>

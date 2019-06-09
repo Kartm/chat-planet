@@ -1,12 +1,6 @@
 const uuidv4 = require('uuid/v4')
 
-const createUser = ({
-    name,
-    socketId,
-    countryCode,
-    latitude,
-    longitude
-} = {}) => ({
+const createUser = ({ name, socketId, countryCode, latitude, longitude }) => ({
     id: uuidv4(),
     name,
     socketId,
@@ -16,6 +10,13 @@ const createUser = ({
     status: 'free'
 })
 
+const createChatroom = ({ from, to }) => ({
+    id: uuidv4(),
+    users: { from, to },
+    messages: []
+})
+
 module.exports = {
-    createUser
+    createUser,
+    createChatroom
 }
