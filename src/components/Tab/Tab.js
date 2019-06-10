@@ -27,7 +27,14 @@ const Tab = props => {
             )
             break
         default:
-            element = <Chat user={props.user} chat={props.chat} />
+            element = (
+                <Chat
+                    user={props.user}
+                    users={props.users}
+                    chat={props.chat}
+                    socket={props.socket}
+                />
+            )
             break
     }
     return <div className='tab'>{element}</div>

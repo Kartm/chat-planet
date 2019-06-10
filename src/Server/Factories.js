@@ -7,6 +7,7 @@ const createUser = ({ name, socketId, countryCode, latitude, longitude }) => ({
     countryCode,
     latitude,
     longitude,
+    chatroomId: null,
     status: 'free'
 })
 

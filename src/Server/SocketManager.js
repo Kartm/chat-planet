@@ -7,7 +7,8 @@ const {
     INVITATION_GOT,
     INVITATION_SENT,
     INVITATION_ACCEPT,
-    CHATROOM_CREATE
+    CHATROOM_CREATE,
+    CHAT_MESSAGE
 } = require('./Events')
 
 const { createUser, createChatroom } = require('./Factories')
@@ -31,30 +32,30 @@ module.exports = socket => {
             response.error = 'Username in use.'
             socket.emit(LOGIN_RESPONSE, { response })
         } else {
-            let ip = socket.request.connection.remoteAddress
-            ip = '31.42.13.108' //! watch out, remove it later
-            iplocation(ip, [])
-                .then(res => {
-                    const user = createUser({
-                        name,
-                        socketId: socket.id,
-                        countryCode: 'PL',
-                        latitude: randomPos(),
-                        longitude: randomPos()
-                        //countryCode: res.countryCode,
-                        // latitude: res.latitude,
-                        // longitude: res.longitude
-                    })
-                    users = addUser({ user, users })
-                    socket.user = user
-                    response.users = users
-                    response.user = user
-                    socket.emit(LOGIN_RESPONSE, { response })
-                    socket.broadcast.emit(REFRESH_USERS, { users })
-                })
-                .catch(err => {
-                    response.error = 'Could not get location.'
-                })
+            // let ip = socket.request.connection.remoteAddress
+            // ip = '31.42.13.108' //! watch out, remove it later
+            // iplocation(ip, [])
+            //     .then(res => {
+            const user = createUser({
+                name,
+                socketId: socket.id,
+                countryCode: 'PL',
+                latitude: randomPos(),
+                longitude: randomPos()
+                //countryCode: res.countryCode,
+                // latitude: res.latitude,
+                // longitude: res.longitude
+            })
+            users = addUser({ user, users })
+            socket.user = user
+            response.users = users
+            response.user = user
+            socket.emit(LOGIN_RESPONSE, { response })
+            socket.broadcast.emit(REFRESH_USERS, { users })
+            // })
+            // .catch(err => {
+            //     response.error = 'Could not get location.'
+            // })
         }
     })
 
@@ -69,14 +70,31 @@ module.exports = socket => {
             to: invitation.to
         })
 
-        //todo cleanup
         users[chat.users.from.id].status = 'busy'
         users[chat.users.to.id].status = 'busy'
+        users[chat.users.from.id].chatroomId = chat.id
+        users[chat.users.to.id].chatroomId = chat.id
+
         io.emit(REFRESH_USERS, { users })
 
         io.sockets.connected[chat.users.from.socketId].join(chat.id)
         io.sockets.connected[chat.users.to.socketId].join(chat.id)
         io.in(chat.id).emit(CHATROOM_CREATE, { chat })
+    })
+
+    const getPartner = ({ user, users }) => {
+        let result = Object.values(users).filter(arrUser => {
+            if (arrUser.chatroomId === user.chatroomId) {
+                if (arrUser.id !== user.id) return true
+                return false
+            }
+            return false
+        })
+        return result.pop()
+    }
+
+    socket.on(CHAT_MESSAGE, ({ message }) => {
+        socket.in(message.who.chatroomId).emit(CHAT_MESSAGE, { message })
     })
 
     socket.on('disconnect', () => {

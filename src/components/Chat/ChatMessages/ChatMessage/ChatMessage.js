@@ -6,7 +6,7 @@ const ChatMessage = props => {
     return (
         <div className='message'>
             <span style={myStyle}>
-                <b>{props.message.from}: </b>
+                <b>{props.message.who.name}: </b>
                 {props.message.content}
             </span>
         </div>

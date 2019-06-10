@@ -3,12 +3,14 @@ import './ChatHeader.css'
 import Flag from '../../reusable/Flag/Flag'
 
 const ChatHeader = props => {
+    let { partner } = props
+    console.log(partner)
     return (
         <div className='chat-header-wrapper'>
             <div className='chat-header-text'>
-                <span>nickname, countryname</span>
+                <span>{`${partner.name}, ${partner.countryCode}`}</span>
             </div>
-            <Flag countryCode={'NZ'} />
+            <Flag countryCode={partner.countryCode} />
         </div>
     )
 }

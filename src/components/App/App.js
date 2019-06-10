@@ -36,6 +36,11 @@ class App extends Component {
 
         socket.on(REFRESH_USERS, ({ users }) => {
             this.setUsers(users)
+            let { user } = this.state
+            if (user) {
+                let newUser = users[user.id]
+                this.setState({ user: newUser })
+            }
         })
 
         socket.on(INVITATION_GOT, ({ invitation }) => {
@@ -43,8 +48,9 @@ class App extends Component {
         })
 
         socket.on(CHATROOM_CREATE, ({ chat }) => {
-            this.setState({ chat })
-            this.setTab(Tabs.CHAT)
+            this.setState({ chat }, () => {
+                this.setTab(Tabs.CHAT)
+            })
         })
     }
 
@@ -100,6 +106,7 @@ class App extends Component {
                     isChatActive={this.state.chat !== null}
                 />
                 <Tab
+                    chat={this.state.chat}
                     socket={this.state.socket}
                     setUsers={this.setUsers}
                     setUser={this.setUser}

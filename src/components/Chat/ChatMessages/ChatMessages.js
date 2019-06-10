@@ -5,18 +5,16 @@ import ChatMessage from './ChatMessage/ChatMessage'
 const ChatMessages = props => {
     let result = []
 
-    //todo parse chat object
-    // let { messages } = props.chat
-    // let { nickname } = props.user
-    // messages.forEach((message, index) => {
-    //     result.push(
-    //         <ChatMessage
-    //             isMine={nickname === message.from}
-    //             message={message}
-    //             key={index}
-    //         />
-    //     )
-    // })
+    let { messages, user } = props
+    messages.forEach((message, index) => {
+        result.push(
+            <ChatMessage
+                isMine={user.name === message.who.name}
+                message={message}
+                key={index}
+            />
+        )
+    })
 
     return (
         <div className='chat-text-wrapper'>
