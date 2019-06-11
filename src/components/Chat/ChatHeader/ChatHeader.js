@@ -5,7 +5,6 @@ import SepiaButton from '../../reusable/SepiaButton/SepiaButton'
 
 const ChatHeader = props => {
     let { partner, onChatLeave } = props
-    console.log(partner)
     return (
         <div className='chat-header'>
             <div className='chat-header-text'>

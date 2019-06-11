@@ -1,10 +1,17 @@
 import React from 'react'
 import Modal from '../Modal/Modal'
+import SepiaButton from '../reusable/SepiaButton/SepiaButton'
+import Flag from '../reusable/Flag/Flag'
 import './InvitationModal.css'
 
 const InvitationModal = props => {
     const { onAccept, onClose, invitation } = props
     if (invitation === null) return null
+
+    const { from } = invitation
+    let invitationText = ''
+    invitationText += from.name + ', ' + from.countryCode
+
     return (
         <Modal>
             <div className='invitation'>
@@ -12,31 +19,31 @@ const InvitationModal = props => {
                     <span className='invitation-header-text'>
                         A new invitation!
                     </span>
-                    <button
+                    <SepiaButton
                         className='invitation-close-button'
                         onClick={onClose}
                     >
                         &#215;
-                    </button>
+                    </SepiaButton>
                 </div>
                 <div className='invitation-content'>
-                    <span>{`from ${invitation.from.name}`}</span>
+                    <span className='invitation-text'>
+                        {invitationText}
+                        <Flag countryCode={from.countryCode} />
+                    </span>
                     <div className='invitation-buttons'>
-                        <button
-                            className='invitation-button accept'
+                        <SepiaButton
+                            className='accept'
                             onClick={() => {
                                 onAccept()
                                 onClose()
                             }}
                         >
                             Accept
-                        </button>
-                        <button
-                            className='invitation-button reject'
-                            onClick={onClose}
-                        >
+                        </SepiaButton>
+                        <SepiaButton className='reject' onClick={onClose}>
                             Reject
-                        </button>
+                        </SepiaButton>
                     </div>
                 </div>
             </div>

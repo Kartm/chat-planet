@@ -22,12 +22,12 @@ const getMarkers = ({ user, users, sendInvitation }) => {
                 key={i}
             >
                 <Popup>
-                    <Flag countryCode={markerUser.countryCode} />
-                    <br />
                     <span>
-                        {markerUser.name}, {markerUser.countryCode}
+                        <Flag countryCode={markerUser.countryCode} />{' '}
+                        {markerUser.countryCode}
                     </span>
-                    <br />{' '}
+
+                    <p>{markerUser.name}</p>
                     {isMyMarker === false && (
                         <SepiaButton
                             onClick={() => {

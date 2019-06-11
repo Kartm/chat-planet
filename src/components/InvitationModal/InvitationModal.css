@@ -17,26 +17,41 @@
 
 .invitation-header span {
     margin-right: 5vmin;
+    margin-top: 1vmin;
+    font-weight: 700;
 }
 
 .invitation-header button {
 }
 
 .invitation-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.invitation-text {
+    margin: 2vmin 0;
+    text-align: center;
+}
+
+.invitation-text .flag {
+    filter: sepia(0.3);
 }
 
 .invitation-buttons {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
 }
 
-.invitation-button {
+.sepia-button.invitation-close-button {
+    padding: 1px 6px;
 }
 
-.invitation-button > .accept {
-    background-color: rgb(81, 138, 49);
+.sepia-button.accept {
+    background-color: rgb(141, 185, 115);
 }
 
-.invitation-button > .reject {
-    background-color: rgb(138, 92, 49);
+.sepia-button.reject {
+    background-color: rgb(199, 157, 118);
 }
