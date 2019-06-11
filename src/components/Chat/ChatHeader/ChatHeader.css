@@ -1,4 +1,4 @@
-.chat-header-wrapper {
+.chat-header {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11,4 +11,11 @@
 
 .chat-header-text {
     display: flex;
+}
+
+.chat-header .sepia-button {
+    position: absolute;
+    right: calc(3vmin + 4px);
+    padding: 1px 6px;
+    font-weight: 700;
 }

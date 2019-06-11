@@ -12,7 +12,9 @@ import {
     INVITATION_GOT,
     INVITATION_SENT,
     INVITATION_ACCEPT,
-    CHATROOM_CREATE
+    CHATROOM_CREATE,
+    CHAT_MESSAGE,
+    CHAT_LEAVE
 } from '../../Server/Events'
 import Invitation from './Invitation'
 const socketUrl = 'http://localhost:3231'
@@ -44,13 +46,23 @@ class App extends Component {
         })
 
         socket.on(INVITATION_GOT, ({ invitation }) => {
-            this.onInvitationReceive({ invitation })
+            this.setState({ invitation })
         })
 
         socket.on(CHATROOM_CREATE, ({ chat }) => {
             this.setState({ chat }, () => {
                 this.setTab(Tabs.CHAT)
             })
+        })
+
+        socket.on(CHAT_MESSAGE, ({ message }) => {
+            this.addNewMessage({ message })
+        })
+
+        socket.on(CHAT_LEAVE, () => {
+            //todo modal - chat has ended
+            this.setTab(Tabs.WORLDMAP)
+            this.setState({ chat: null })
         })
     }
 
@@ -64,10 +76,6 @@ class App extends Component {
 
     setTab = tab => {
         this.setState({ tab })
-    }
-
-    onInvitationReceive = ({ invitation }) => {
-        this.setState({ invitation })
     }
 
     onInvitationAccept = () => {
@@ -86,6 +94,20 @@ class App extends Component {
             to
         })
         socket.emit(INVITATION_SENT, { invitation })
+    }
+
+    addNewMessage = ({ message }) => {
+        this.setState({
+            chat: {
+                ...this.state.chat,
+                messages: [...this.state.chat.messages, message]
+            }
+        })
+    }
+
+    onChatLeave = () => {
+        const { socket } = this.state
+        socket.emit(CHAT_LEAVE, null)
     }
 
     render() {
@@ -116,6 +138,8 @@ class App extends Component {
                     users={this.state.users}
                     chat={this.state.chat}
                     tab={this.state.tab}
+                    onMessageSend={this.addNewMessage}
+                    onChatLeave={this.onChatLeave}
                 />
             </React.Fragment>
         )

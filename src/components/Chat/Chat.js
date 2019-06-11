@@ -21,27 +21,24 @@ class Chat extends Component {
         return result.pop()
     }
 
-    componentDidMount() {
-        const { socket } = this.props
-        socket.on(CHAT_MESSAGE, ({ message }) => {
-            this.setState({ messages: [...this.state.messages, message] })
-        })
-    }
-
     onSend = ({ value }) => {
         const { socket } = this.props
         let message = {}
         message.who = this.props.user
         message.content = value
+        this.props.onMessageSend({ message })
         socket.emit(CHAT_MESSAGE, { message })
     }
 
     render() {
-        const { chat, user, users } = this.props
+        const { chat, user, users, onChatLeave } = this.props
         return (
             <div className='chat'>
-                <ChatHeader partner={this.getPartner({ user, users })} />
-                <ChatMessages user={user} messages={this.state.messages} />
+                <ChatHeader
+                    onChatLeave={onChatLeave}
+                    partner={this.getPartner({ user, users })}
+                />
+                <ChatMessages user={user} messages={chat.messages} />
                 <ChatInput onSend={this.onSend} />
             </div>
         )

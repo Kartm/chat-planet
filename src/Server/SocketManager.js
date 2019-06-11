@@ -8,7 +8,8 @@ const {
     INVITATION_SENT,
     INVITATION_ACCEPT,
     CHATROOM_CREATE,
-    CHAT_MESSAGE
+    CHAT_MESSAGE,
+    CHAT_LEAVE
 } = require('./Events')
 
 const { createUser, createChatroom } = require('./Factories')
@@ -61,7 +62,14 @@ module.exports = socket => {
 
     socket.on(INVITATION_SENT, ({ invitation }) => {
         let { socketId } = invitation.to
-        socket.to(socketId).emit(INVITATION_GOT, { invitation })
+        //todo verify if players not busy
+        let fromId = io.sockets.connected[invitation.from.socketId].user.id
+        let toId = io.sockets.connected[invitation.to.socketId].user.id
+        if (users[fromId].status === 'free') {
+            if (users[toId].status === 'free') {
+                socket.to(socketId).emit(INVITATION_GOT, { invitation })
+            }
+        }
     })
 
     socket.on(INVITATION_ACCEPT, ({ invitation }) => {
@@ -95,6 +103,23 @@ module.exports = socket => {
 
     socket.on(CHAT_MESSAGE, ({ message }) => {
         socket.in(message.who.chatroomId).emit(CHAT_MESSAGE, { message })
+    })
+
+    socket.on(CHAT_LEAVE, () => {
+        const user = users[socket.user.id]
+        const partner = getPartner({ user, users })
+        const chatId = user.chatroomId
+
+        users[user.id].status = 'free'
+        users[partner.id].status = 'free'
+
+        users[user.id].chatroomId = null
+        users[partner.id].chatroomId = null
+
+        io.in(chatId).emit(CHAT_LEAVE, null)
+        io.sockets.connected[user.socketId].leave(chatId)
+        io.sockets.connected[partner.socketId].leave(chatId)
+        io.emit(REFRESH_USERS, { users })
     })
 
     socket.on('disconnect', () => {

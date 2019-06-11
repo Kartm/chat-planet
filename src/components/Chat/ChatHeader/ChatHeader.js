@@ -1,16 +1,20 @@
 import React from 'react'
 import './ChatHeader.css'
 import Flag from '../../reusable/Flag/Flag'
+import SepiaButton from '../../reusable/SepiaButton/SepiaButton'
 
 const ChatHeader = props => {
-    let { partner } = props
+    let { partner, onChatLeave } = props
     console.log(partner)
     return (
-        <div className='chat-header-wrapper'>
+        <div className='chat-header'>
             <div className='chat-header-text'>
                 <span>{`${partner.name}, ${partner.countryCode}`}</span>
             </div>
             <Flag countryCode={partner.countryCode} />
+            <SepiaButton onClick={onChatLeave}>
+                {String.fromCharCode(215)}
+            </SepiaButton>
         </div>
     )
 }

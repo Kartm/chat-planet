@@ -33,6 +33,8 @@ const Tab = props => {
                     users={props.users}
                     chat={props.chat}
                     socket={props.socket}
+                    onMessageSend={props.onMessageSend}
+                    onChatLeave={props.onChatLeave}
                 />
             )
             break
