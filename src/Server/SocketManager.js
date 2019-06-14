@@ -12,16 +12,16 @@ const {
     CHAT_LEAVE
 } = require('./Events')
 
-const { createUser, createChatroom } = require('./Factories')
+const { createChatroom } = require('./Factories')
 const {
     isNameInUse,
     addUser,
     removeUser,
     isUserFree,
     setPlayerState,
-    resetPlayerState
+    resetPlayerState,
+    createUserWithLocation
 } = require('./Functions')
-const iplocation = require('iplocation').default
 
 let users = {}
 
@@ -41,30 +41,14 @@ module.exports = socket => {
             response.error = 'Username in use.'
             socket.emit(LOGIN_RESPONSE, { response })
         } else {
-            // let ip = socket.request.connection.remoteAddress
-            // ip = '31.42.13.108' //! watch out, remove it later
-            // iplocation(ip, [])
-            //     .then(res => {
-            const user = createUser({
-                name,
-                socketId: socket.id,
-                countryCode: 'PL',
-                latitude: randomPos(),
-                longitude: randomPos()
-                //countryCode: res.countryCode,
-                // latitude: res.latitude,
-                // longitude: res.longitude
+            createUserWithLocation({ name, socket }).then(user => {
+                users = addUser({ user, users })
+                socket.user = user
+                response.users = users
+                response.user = user
+                socket.emit(LOGIN_RESPONSE, { response })
+                socket.broadcast.emit(REFRESH_USERS, { users })
             })
-            users = addUser({ user, users })
-            socket.user = user
-            response.users = users
-            response.user = user
-            socket.emit(LOGIN_RESPONSE, { response })
-            socket.broadcast.emit(REFRESH_USERS, { users })
-            // })
-            // .catch(err => {
-            //     response.error = 'Could not get location.'
-            // })
         }
     })
 

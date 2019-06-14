@@ -1,3 +1,7 @@
+const iplocation = require('iplocation').default
+const { createUser } = require('./Factories')
+const faker = require('faker')
+
 const isNameInUse = ({ name, users }) => {
     return name in users
 }
@@ -32,11 +36,41 @@ const resetPlayerState = ({ user, users }) => {
     return users
 }
 
+const localIps = ['127.0.0.1', '::ffff:127.0.0.1', '::1']
+
+const createUserWithLocation = ({ name, socket }) =>
+    new Promise((resolve, reject) => {
+        let ip = socket.request.connection.remoteAddress
+        const isLocal = localIps.some(value => {
+            return value === ip
+        })
+
+        if (isLocal) {
+            ip = faker.internet.ip()
+        }
+
+        iplocation(ip, [])
+            .then(res => {
+                const user = createUser({
+                    name,
+                    socketId: socket.id,
+                    countryCode: res.countryCode,
+                    latitude: res.latitude,
+                    longitude: res.longitude
+                })
+                resolve(user)
+            })
+            .catch(err => {
+                reject(err)
+            })
+    })
+
 module.exports = {
     isNameInUse,
     addUser,
     removeUser,
     isUserFree,
     setPlayerState,
-    resetPlayerState
+    resetPlayerState,
+    createUserWithLocation
 }
