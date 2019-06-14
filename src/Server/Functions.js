@@ -36,7 +36,7 @@ const resetPlayerState = ({ user, users }) => {
     return users
 }
 
-const localIps = ['127.0.0.1', '::ffff:127.0.0.1', '::1']
+const localIps = ['127.0.0.1', '::ffff:127.0.0.1', '::1', '1']
 
 const isInternalIp = ip => {
     return ip.split('.')[0] === '10'
@@ -60,6 +60,7 @@ const createUserWithLocation = ({ name, socket }) =>
 
         if (isLocal) {
             ip = faker.internet.ip()
+            ip = '72.229.28.185' //* a completely random IP address
         }
 
         console.log(ip)

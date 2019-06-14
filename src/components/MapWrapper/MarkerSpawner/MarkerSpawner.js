@@ -1,5 +1,6 @@
 import React from 'react'
 import { Marker, Popup } from 'react-leaflet'
+import MarkerClusterGroup from 'react-leaflet-markercluster'
 import { divIcon } from 'leaflet'
 import Flag from '../../reusable/Flag/Flag'
 import SepiaButton from '../../reusable/SepiaButton/SepiaButton'
@@ -10,6 +11,7 @@ const getMarkers = ({ user, users, sendInvitation }) => {
     Object.values(users).forEach((markerUser, i) => {
         let markerClass = null
         const isMyMarker = user && user.name === markerUser.name
+        //todo group markers
         //todo create enums, get rid of the strings
         if (isMyMarker) markerClass = 'me'
         else if (markerUser.status === 'free') markerClass = 'free'
@@ -47,7 +49,8 @@ const getMarkers = ({ user, users, sendInvitation }) => {
 
 const MarkerSpawner = props => {
     const { user, users, sendInvitation } = props
-    return getMarkers({ user, users, sendInvitation })
+    let markers = getMarkers({ user, users, sendInvitation })
+    return markers
 }
 
 export default MarkerSpawner
