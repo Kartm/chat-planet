@@ -5,6 +5,7 @@ import { Tabs } from './Enums'
 import Header from '../Header/Header'
 import Tab from '../Tab/Tab'
 import InvitationModal from '../InvitationModal/InvitationModal'
+import InformationModal from '../InformationModal/InformationModal'
 
 import io from 'socket.io-client'
 import {
@@ -29,9 +30,13 @@ class App extends Component {
         users: [],
         socket: null,
         invitation: null,
+        information: null,
         tab: Tabs.START,
         chat: null
     }
+
+    //todo user status is somewhat set to "BUSY"
+    //todo crash after disconnecting from chat
 
     componentDidMount() {
         const socket = io.connect(socketUrl, { secure: true })
@@ -67,6 +72,7 @@ class App extends Component {
             //todo modal - chat has ended
             this.setTab(Tabs.WORLDMAP)
             this.setState({ chat: null })
+            this.setState({ information: 'Your chat has ended.' })
         })
     }
 
@@ -89,6 +95,10 @@ class App extends Component {
 
     onInvitationClose = () => {
         this.setState({ invitation: null })
+    }
+
+    onInformationClose = () => {
+        this.setState({ information: null })
     }
 
     sendInvitation = ({ from, to }) => {
@@ -122,6 +132,11 @@ class App extends Component {
                     onAccept={this.onInvitationAccept}
                     onClose={this.onInvitationClose}
                 />
+                <InformationModal
+                    information={this.state.information}
+                    onClose={this.onInformationClose}
+                />
+
                 <Header
                     setTab={this.setTab}
                     activeTab={this.state.tab}
