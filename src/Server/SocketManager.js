@@ -42,6 +42,7 @@ module.exports = socket => {
             socket.emit(LOGIN_RESPONSE, { response })
         } else {
             createUserWithLocation({ name, socket }).then(user => {
+                console.log(user)
                 users = addUser({ user, users })
                 socket.user = user
                 response.users = users
