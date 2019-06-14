@@ -1,7 +1,6 @@
 const iplocation = require('iplocation').default
 const { createUser } = require('./Factories')
 const faker = require('faker')
-const Address6 = require('ip-address').Address6
 
 const isNameInUse = ({ name, users }) => {
     return name in users
@@ -45,6 +44,7 @@ const createUserWithLocation = ({ name, socket }) =>
         //* in case we have an ipv6 address, which is not supported
         //* by the iplocation
         ip = ip.split(':').pop()
+        console.log(ip)
         const isLocal = localIps.some(value => {
             return value === ip
         })
@@ -53,6 +53,7 @@ const createUserWithLocation = ({ name, socket }) =>
             ip = faker.internet.ip()
         }
 
+        console.log(ip)
         iplocation(ip, [])
             .then(res => {
                 const user = createUser({
