@@ -18,7 +18,7 @@ import {
 } from '../../Server/Events'
 import Invitation from './Invitation'
 
-let socketUrl = 'ws://' + window.location.hostname + ':80'
+let socketUrl = 'wss://' + window.location.hostname + ':80'
 console.log(socketUrl)
 if (process.env.NODE_ENV === 'development') {
     socketUrl = 'http://localhost:3231'

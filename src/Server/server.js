@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-const server = require('http').createServer(app)
+const server = require('https').createServer(app)
 const io = (module.exports.io = require('socket.io')(server, {
     pingInterval: 2000
 }))
