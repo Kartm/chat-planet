@@ -38,13 +38,22 @@ const resetPlayerState = ({ user, users }) => {
 
 const localIps = ['127.0.0.1', '::ffff:127.0.0.1', '::1']
 
+const isInternalIp = ip => {
+    return ip.split('.')[0] === '10'
+}
+
+const getClientIp = socket => {
+    let ip = socket.request.connection.remoteAddress
+    ip = ip.split(':').pop() //* in case it's an ipv6 address
+    if (isInternalIp(ip)) {
+        ip = socket.request.headers['x-forwarded-for']
+    }
+    return ip
+}
+
 const createUserWithLocation = ({ name, socket }) =>
     new Promise((resolve, reject) => {
-        let ip = socket.request.connection.remoteAddress
-        //* in case we have an ipv6 address, which is not supported
-        //* by the iplocation
-        ip = ip.split(':').pop()
-        console.log(ip)
+        let ip = getClientIp(socket)
         const isLocal = localIps.some(value => {
             return value === ip
         })
@@ -78,5 +87,6 @@ module.exports = {
     isUserFree,
     setPlayerState,
     resetPlayerState,
-    createUserWithLocation
+    createUserWithLocation,
+    getClientIp
 }
