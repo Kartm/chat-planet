@@ -53,6 +53,7 @@ const createUserWithLocation = ({ name, socket }) =>
             .then(res => {
                 const user = createUser({
                     name,
+                    ip,
                     socketId: socket.id,
                     countryCode: res.countryCode,
                     latitude: res.latitude,

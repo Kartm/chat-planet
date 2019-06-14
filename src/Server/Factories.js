@@ -1,8 +1,16 @@
 const uuidv4 = require('uuid/v4')
 
-const createUser = ({ name, socketId, countryCode, latitude, longitude }) => ({
+const createUser = ({
+    name,
+    socketId,
+    ip,
+    countryCode,
+    latitude,
+    longitude
+}) => ({
     id: uuidv4(),
     name,
+    ip,
     socketId,
     countryCode,
     latitude,
