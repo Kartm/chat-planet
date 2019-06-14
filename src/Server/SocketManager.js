@@ -23,7 +23,7 @@ const {
     createUserWithLocation
 } = require('./Functions')
 
-const UserStatus = require('../components/App/Enums')
+const { UserStatus } = require('../components/App/Enums')
 
 let users = {}
 
@@ -38,7 +38,6 @@ module.exports = socket => {
         const { name } = data
         let response = { user: null, error: null, users: null }
 
-        //todo not checking, always not in use
         if (isNameInUse({ name, users })) {
             response.error = 'Username in use.'
             socket.emit(LOGIN_RESPONSE, { response })

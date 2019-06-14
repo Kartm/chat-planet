@@ -1,10 +1,14 @@
 const iplocation = require('iplocation').default
 const { createUser } = require('./Factories')
 const faker = require('faker')
-const UserStatus = require('../components/App/Enums')
+const { UserStatus } = require('../components/App/Enums')
 
 const isNameInUse = ({ name, users }) => {
-    return name in users
+    for (let i = 0; i < Object.values(users).length; i++) {
+        const user = Object.values(users)[i]
+        if (user.name === name) return true
+    }
+    return false
 }
 
 const addUser = ({ user, users }) => {

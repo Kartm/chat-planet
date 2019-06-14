@@ -140,7 +140,6 @@ class App extends Component {
                     sendInvitation={this.sendInvitation}
                     user={this.state.user}
                     users={this.state.users}
-                    chat={this.state.chat}
                     tab={this.state.tab}
                     onMessageSend={this.addNewMessage}
                     onChatLeave={this.onChatLeave}

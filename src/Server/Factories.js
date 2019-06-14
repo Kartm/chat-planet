@@ -1,5 +1,5 @@
 const uuidv4 = require('uuid/v4')
-const UserStatus = require('../components/App/Enums')
+const { UserStatus } = require('../components/App/Enums')
 
 const createUser = ({
     name,

@@ -1,4 +1,4 @@
-const { createUserWithLocation } = require('./Functions')
+const { createUserWithLocation, isNameInUse } = require('./Functions')
 
 test('creates user with correct name', () => {
     let name = 'testUser'
@@ -30,4 +30,10 @@ test('creates user with correct longitude', () => {
     return createUserWithLocation({ name, socket }).then(user => {
         expect(user.longitude).toBe(-96.7419)
     })
+})
+
+test('is name in use', () => {
+    let name = '123'
+    let users = { randomid: { name: '123' } }
+    expect(isNameInUse({ name, users })).toBe(true)
 })
