@@ -19,7 +19,6 @@ import {
 import Invitation from './Invitation'
 
 let socketUrl = 'wss://' + window.location.hostname
-console.log(socketUrl)
 if (process.env.NODE_ENV === 'development') {
     socketUrl = 'http://localhost:3231'
 }

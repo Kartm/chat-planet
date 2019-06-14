@@ -3,11 +3,12 @@ import './Tab.css'
 import Start from '../Start/Start'
 import MapWrapper from '../MapWrapper/MapWrapper'
 import Chat from '../Chat/Chat'
+const { Tabs } = require('../App/Enums')
 
 const Tab = props => {
     let element
     switch (props.tab) {
-        case 1:
+        case Tabs.START:
             element = (
                 <Start
                     socket={props.socket}
@@ -17,7 +18,7 @@ const Tab = props => {
                 />
             )
             break
-        case 2:
+        case Tabs.WORLDMAP:
             element = (
                 <MapWrapper
                     user={props.user}

@@ -1,7 +1,12 @@
 const Tabs = {
-    START: 1,
-    WORLDMAP: 2,
-    CHAT: 3
+    START: 'START',
+    WORLDMAP: 'WORLDMAP',
+    CHAT: 'CHAT'
 }
 
-module.exports = { Tabs }
+const UserStatus = {
+    FREE: 'FREE',
+    BUSY: 'BUSY'
+}
+
+module.exports = { Tabs, UserStatus }

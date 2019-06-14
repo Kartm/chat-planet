@@ -1,6 +1,7 @@
 const iplocation = require('iplocation').default
 const { createUser } = require('./Factories')
 const faker = require('faker')
+const UserStatus = require('../components/App/Enums')
 
 const isNameInUse = ({ name, users }) => {
     return name in users
@@ -20,7 +21,7 @@ const removeUser = ({ user, users }) => {
 
 const isUserFree = ({ user, users }) => {
     let id = user.id
-    return users[id].status === 'free'
+    return users[id].status === UserStatus.FREE
 }
 
 const setPlayerState = ({ user, users, io, status, chatId }) => {
@@ -31,7 +32,7 @@ const setPlayerState = ({ user, users, io, status, chatId }) => {
 }
 
 const resetPlayerState = ({ user, users }) => {
-    users[user.id].status = 'free'
+    users[user.id].status = UserStatus.FREE
     users[user.id].chatroomId = null
     return users
 }
@@ -63,7 +64,6 @@ const createUserWithLocation = ({ name, socket }) =>
             ip = '72.229.28.185' //* a completely random IP address
         }
 
-        console.log(ip)
         iplocation(ip, [])
             .then(res => {
                 const user = createUser({

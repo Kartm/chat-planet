@@ -4,16 +4,25 @@ import { divIcon } from 'leaflet'
 import Flag from '../../reusable/Flag/Flag'
 import SepiaButton from '../../reusable/SepiaButton/SepiaButton'
 import './MarkerSpawner.css'
+const UserStatus = require('../../App/Enums')
 
 const getMarkers = ({ user, users, sendInvitation }) => {
     let result = []
     Object.values(users).forEach((markerUser, i) => {
         let markerClass = null
         const isMyMarker = user && user.name === markerUser.name
-        //todo create enums, get rid of the strings
         if (isMyMarker) markerClass = 'me'
-        else if (markerUser.status === 'free') markerClass = 'free'
-        else if (markerUser.status === 'busy') markerClass = 'busy'
+        else {
+            switch (markerUser.status) {
+                case UserStatus.FREE:
+                    markerClass = 'free'
+                    break
+                default:
+                    markerClass = 'busy'
+                    break
+            }
+        }
+
         const icon = divIcon({ className: `markerIcon-${markerClass}` })
         result.push(
             <Marker

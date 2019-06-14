@@ -23,6 +23,8 @@ const {
     createUserWithLocation
 } = require('./Functions')
 
+const UserStatus = require('../components/App/Enums')
+
 let users = {}
 
 const randomPos = () => {
@@ -42,7 +44,6 @@ module.exports = socket => {
             socket.emit(LOGIN_RESPONSE, { response })
         } else {
             createUserWithLocation({ name, socket }).then(user => {
-                console.log(user)
                 users = addUser({ user, users })
                 socket.user = user
                 response.users = users
@@ -72,7 +73,7 @@ module.exports = socket => {
             user: invitation.from,
             users,
             io,
-            status: 'busy',
+            status: UserStatus.BUSY,
             chatId: chat.id
         })
 
@@ -80,7 +81,7 @@ module.exports = socket => {
             user: invitation.to,
             users,
             io,
-            status: 'busy',
+            status: UserStatus.BUSY,
             chatId: chat.id
         })
 
