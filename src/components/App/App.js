@@ -35,7 +35,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        const socket = io.connect(socketUrl)
+        const socket = io.connect(socketUrl, { secure: true })
         this.setState({ socket })
         socket.on('connect', () => {
             console.log('Connected to server.')
