@@ -17,9 +17,12 @@ import {
     CHAT_LEAVE
 } from '../../Server/Events'
 import Invitation from './Invitation'
-const port = process.env.PORT || 3231
 
-const socketUrl = 'http://localhost:' + port
+let socketUrl = window.location.hostname + ':' + process.env.PORT
+console.log(socketUrl)
+if (process.env.NODE_ENV === 'development') {
+    socketUrl = 'http://localhost:3231'
+}
 
 class App extends Component {
     state = {
