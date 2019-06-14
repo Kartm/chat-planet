@@ -7,7 +7,6 @@
         "express": "^4.17.0",
         "faker": "^4.1.0",
         "fast-deep-equal": "^2.0.1",
-        "ip-address": "^5.9.2",
         "iplocation": "^6.1.0",
         "leaflet": "^1.5.1",
         "path": "^0.12.7",

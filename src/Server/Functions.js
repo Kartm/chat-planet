@@ -41,10 +41,10 @@ const localIps = ['127.0.0.1', '::ffff:127.0.0.1', '::1']
 
 const createUserWithLocation = ({ name, socket }) =>
     new Promise((resolve, reject) => {
-        //let ip = socket.request.connection.remoteAddress
-        let ip = socket.handshake.address
-        let ipv6 = new Address6(ip)
-        ip = ipv6.to4().address
+        let ip = socket.request.connection.remoteAddress
+        //* in case we have an ipv6 address, which is not supported
+        //* by the iplocation
+        ip = ip.split(':').pop()
         const isLocal = localIps.some(value => {
             return value === ip
         })
