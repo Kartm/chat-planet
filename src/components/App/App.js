@@ -35,8 +35,7 @@ class App extends Component {
         chat: null
     }
 
-    //todo user status is somewhat set to "BUSY"
-    //todo crash after disconnecting from chat
+    //todo marker legend
 
     componentDidMount() {
         const socket = io.connect(socketUrl, { secure: true })
@@ -69,7 +68,6 @@ class App extends Component {
         })
 
         socket.on(CHAT_LEAVE, () => {
-            //todo modal - chat has ended
             this.setTab(Tabs.WORLDMAP)
             this.setState({ chat: null })
             this.setState({ information: 'Your chat has ended.' })

@@ -4,7 +4,7 @@ import { divIcon } from 'leaflet'
 import Flag from '../../reusable/Flag/Flag'
 import SepiaButton from '../../reusable/SepiaButton/SepiaButton'
 import './MarkerSpawner.css'
-const UserStatus = require('../../App/Enums')
+const { UserStatus } = require('../../App/Enums')
 
 const getMarkers = ({ user, users, sendInvitation }) => {
     let result = []
