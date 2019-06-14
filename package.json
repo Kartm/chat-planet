@@ -9,6 +9,7 @@
         "fast-deep-equal": "^2.0.1",
         "iplocation": "^6.1.0",
         "leaflet": "^1.5.1",
+        "path": "^0.12.7",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
         "react-leaflet": "^2.3.0",
