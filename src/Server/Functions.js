@@ -1,6 +1,7 @@
 const iplocation = require('iplocation').default
 const { createUser } = require('./Factories')
 const faker = require('faker')
+const Address6 = require('ip-address').Address6
 
 const isNameInUse = ({ name, users }) => {
     return name in users
@@ -40,7 +41,10 @@ const localIps = ['127.0.0.1', '::ffff:127.0.0.1', '::1']
 
 const createUserWithLocation = ({ name, socket }) =>
     new Promise((resolve, reject) => {
-        let ip = socket.request.connection.remoteAddress
+        //let ip = socket.request.connection.remoteAddress
+        let ip = socket.handshake.address
+        let ipv6 = new Address6(ip)
+        ip = ipv6.to4().address
         const isLocal = localIps.some(value => {
             return value === ip
         })
