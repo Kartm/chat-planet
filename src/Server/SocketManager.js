@@ -132,13 +132,15 @@ module.exports = socket => {
             users = removeUser({ user, users })
 
             const partner = getPartner({ user, users })
-            users = resetPlayerState({
-                user: partner,
-                users
-            })
+            if (partner) {
+                users = resetPlayerState({
+                    user: partner,
+                    users
+                })
+                io.sockets.connected[partner.socketId].leave(chatroomId)
+            }
 
             io.in(chatroomId).emit(CHAT_LEAVE, null)
-            io.sockets.connected[partner.socketId].leave(chatroomId)
             io.emit(REFRESH_USERS, { users })
         }
     })

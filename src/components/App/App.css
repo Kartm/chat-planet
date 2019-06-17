@@ -63,9 +63,3 @@ html {
     border-width: 1px;
     outline: none;
 }
-
-.button--sepia {
-    border-color: #d8d8d840;
-    background-color: #31302e;
-    color: rgb(221, 215, 187);
-}

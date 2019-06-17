@@ -12,3 +12,13 @@
     z-index: 5;
     box-shadow: 3px 3px 6px 0px rgba(0, 0, 0, 0.45);
 }
+
+.button--sepia {
+    border-color: #d8d8d840;
+    background-color: #31302e;
+    color: rgb(221, 215, 187);
+}
+
+.button--sepia--hidden {
+    visibility: hidden;
+}

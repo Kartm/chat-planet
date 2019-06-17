@@ -11,7 +11,12 @@ const SepiaButton = props => {
     if (props.className) className += props.className
 
     return (
-        <button onClick={onClick} type='submit' className={className}>
+        <button
+            title={props.title && props.title}
+            onClick={onClick}
+            type='submit'
+            className={className}
+        >
             {props.children}
         </button>
     )

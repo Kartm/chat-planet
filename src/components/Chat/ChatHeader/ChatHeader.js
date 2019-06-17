@@ -11,7 +11,7 @@ const ChatHeader = props => {
                 <span>{`${partner.name}, ${partner.countryCode}`}</span>
             </div>
             <Flag countryCode={partner.countryCode} />
-            <SepiaButton onClick={onChatLeave}>
+            <SepiaButton title={'Leave the chat'} onClick={onChatLeave}>
                 {String.fromCharCode(215)}
             </SepiaButton>
         </div>
