@@ -35,8 +35,6 @@ class App extends Component {
         chat: null
     }
 
-    //todo marker legend
-
     componentDidMount() {
         const socket = io.connect(socketUrl, { secure: true })
         this.setState({ socket })

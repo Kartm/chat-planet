@@ -131,7 +131,6 @@ module.exports = socket => {
             let { chatroomId } = users[user.id]
             users = removeUser({ user, users })
 
-            //todo rewrite it to have common code with the handler above
             const partner = getPartner({ user, users })
             users = resetPlayerState({
                 user: partner,
