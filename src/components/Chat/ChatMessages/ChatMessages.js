@@ -19,8 +19,6 @@ const ChatMessages = props => {
     })
 
     useEffect(() => {
-        console.log(scrollView.current.clientHeight)
-        console.log(scrollView.current.scrollHeight)
         scrollView.current.scrollTo(0, scrollView.current.scrollHeight)
     })
 
