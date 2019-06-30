@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import './reset.css'
+import './responsive.css'
 import { Tabs } from './Enums'
 import Header from '../Header/Header'
 import Tab from '../Tab/Tab'
