@@ -18,7 +18,9 @@ const Description = props => {
                 />
                 <a href='https://github.com/Kartm'>github.com/kartm</a>
             </div>
-            <div className='start-footer'>© 2019 Łukasz Blachnicki</div>
+            <div className='start-footer'>
+                © {new Date().getFullYear()} Łukasz Blachnicki
+            </div>
         </div>
     )
 }
