@@ -1,13 +1,16 @@
-const express = require('express')
+import express from 'express'
+import path from 'path'
+import http from 'http'
+import socketIo from 'socket.io'
+
 const app = express()
-const path = require('path')
-const server = require('http').createServer(app)
-const io = (module.exports.io = require('socket.io')(server, {
+const server = http.createServer(app)
+export const io = socketIo(server, {
     pingInterval: 2000
-}))
+})
 
 const port = process.env.PORT || 3231
-const SocketManager = require('./SocketManager')
+import SocketManager from './SocketManager'
 
 io.on('connection', SocketManager)
 

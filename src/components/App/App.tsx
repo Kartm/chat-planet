@@ -2,23 +2,19 @@ import React, { Component } from 'react'
 import './App.css'
 import './reset.css'
 import './responsive.css'
-import { Tabs } from './Enums'
+import { Tabs } from '../../models/Tabs.enum'
 import Header from '../Header/Header'
 import Tab from '../Tab/Tab'
 import InvitationModal from '../InvitationModal/InvitationModal'
 import InformationModal from '../InformationModal/InformationModal'
 
 import io from 'socket.io-client'
-import {
-    REFRESH_USERS,
-    INVITATION_GOT,
-    INVITATION_SENT,
-    INVITATION_ACCEPT,
-    CHATROOM_CREATE,
-    CHAT_MESSAGE,
-    CHAT_LEAVE
-} from '../../Server/Events'
-import Invitation from './Invitation'
+import { Events } from '../../models/Events.enum'
+import Invitation from '../../models/Invitation'
+import { User, Users } from '../../models/User.interface'
+import { Socket } from 'socket.io'
+import { Chatroom } from '../../models/Chatroom.interface'
+import { ChatMessage } from '../../models/ChatMessage.interface'
 
 let socketUrl = 'wss://' + window.location.hostname
 if (process.env.NODE_ENV === 'development') {
@@ -27,13 +23,13 @@ if (process.env.NODE_ENV === 'development') {
 
 class App extends Component {
     state = {
-        user: null,
-        users: [],
-        socket: null,
+        user: null as User | null,
+        users: null as Users | null,
+        socket: null as Socket | null,
         invitation: null,
         information: null,
         tab: Tabs.START,
-        chat: null
+        chat: null as Chatroom | null
     }
 
     componentDidMount() {
@@ -43,7 +39,7 @@ class App extends Component {
             console.log('Connected to server.')
         })
 
-        socket.on(REFRESH_USERS, ({ users }) => {
+        socket.on(Events.REFRESH_USERS, ({ users }: { users: Users }) => {
             this.setUsers(users)
             let { user } = this.state
             if (user) {
@@ -52,42 +48,44 @@ class App extends Component {
             }
         })
 
-        socket.on(INVITATION_GOT, ({ invitation }) => {
+        socket.on(Events.INVITATION_GOT, ({ invitation }: {invitation: Invitation}) => {
             this.setState({ invitation })
         })
 
-        socket.on(CHATROOM_CREATE, ({ chat }) => {
+        socket.on(Events.CHATROOM_CREATE, ({ chat }: {chat: Chatroom}) => {
             this.setState({ chat }, () => {
                 this.setTab(Tabs.CHAT)
             })
         })
 
-        socket.on(CHAT_MESSAGE, ({ message }) => {
+        socket.on(Events.CHAT_MESSAGE, ({ message }: {message: ChatMessage}) => {
             this.addNewMessage({ message })
         })
 
-        socket.on(CHAT_LEAVE, () => {
+        socket.on(Events.CHAT_LEAVE, () => {
             this.setTab(Tabs.WORLDMAP)
             this.setState({ chat: null })
             this.setState({ information: 'Your chat has ended.' })
         })
     }
 
-    setUser = user => {
+    setUser = (user: User) => {
         this.setState({ user })
     }
 
-    setUsers = users => {
+    setUsers = (users: Users) => {
         this.setState({ users })
     }
 
-    setTab = tab => {
+    setTab = (tab: Tabs) => {
         this.setState({ tab })
     }
 
     onInvitationAccept = () => {
         const { socket, invitation } = this.state
-        socket.emit(INVITATION_ACCEPT, { invitation })
+        if(socket) {
+            socket.emit(Events.INVITATION_ACCEPT, { invitation })
+        }
     }
 
     onInvitationClose = () => {
@@ -98,27 +96,32 @@ class App extends Component {
         this.setState({ information: null })
     }
 
-    sendInvitation = ({ from, to }) => {
+    sendInvitation = ({ from, to }: {from: User, to: User}) => {
         const { socket } = this.state
         const invitation = new Invitation({
             from,
             to
         })
-        socket.emit(INVITATION_SENT, { invitation })
+
+        if(socket) {
+            socket.emit(Events.INVITATION_SENT, { invitation })
+        }
     }
 
-    addNewMessage = ({ message }) => {
+    addNewMessage = ({ message }: {message: ChatMessage}) => {
         this.setState({
             chat: {
                 ...this.state.chat,
-                messages: [...this.state.chat.messages, message]
+                messages: this.state.chat ? [...this.state.chat.messages, message] : [message]
             }
         })
     }
 
     onChatLeave = () => {
         const { socket } = this.state
-        socket.emit(CHAT_LEAVE, null)
+        if(socket) {
+            socket.emit(Events.CHAT_LEAVE, null)
+        }
     }
 
     render() {
@@ -137,7 +140,6 @@ class App extends Component {
                 <Header
                     setTab={this.setTab}
                     activeTab={this.state.tab}
-                    onLogin={this.onLogin}
                     user={this.state.user}
                     users={this.state.users}
                     isLoggedIn={this.state.user !== null}

@@ -6,7 +6,11 @@ class Modal extends Component {
     root = document.getElementById('portal-root')
 
     render() {
-        return ReactDOM.createPortal(this.props.children, this.root)
+        if(this.root) {
+            return ReactDOM.createPortal(this.props.children, this.root)
+        }
+        
+        return null;
     }
 }
 

@@ -1,9 +1,16 @@
-const iplocation = require('iplocation').default
-const { createUser } = require('./Factories')
-const faker = require('faker')
-const { UserStatus } = require('../components/App/Enums')
+import iplocation from 'iplocation'
+import faker from 'faker'
+import { createUser } from './Factories'
+import { User, Users, UserStatus } from '../models/User.interface'
+import { Server, Socket } from 'socket.io'
 
-const isNameInUse = ({ name, users }) => {
+export const isNameInUse = ({
+    name,
+    users
+}: {
+    name: string
+    users: Users
+}) => {
     for (let i = 0; i < Object.values(users).length; i++) {
         const user = Object.values(users)[i]
         if (user.name === name) return true
@@ -11,43 +18,61 @@ const isNameInUse = ({ name, users }) => {
     return false
 }
 
-const addUser = ({ user, users }) => {
+export const addUser = ({ user, users }: { user: User; users: Users }) => {
     let newUsers = Object.assign({}, users)
     newUsers[user.id] = user
     return newUsers
 }
 
-const removeUser = ({ user, users }) => {
+export const removeUser = ({ user, users }: { user: User; users: Users }) => {
     let newUsers = Object.assign({}, users)
     delete newUsers[user.id]
     return newUsers
 }
 
-const isUserFree = ({ user, users }) => {
+export const isUserFree = ({ user, users }: { user: User; users: Users }) => {
     let id = user.id
     return users[id].status === UserStatus.FREE
 }
 
-const setPlayerState = ({ user, users, io, status, chatId }) => {
+export const setPlayerState = ({
+    user,
+    users,
+    io,
+    status,
+    chatId
+}: {
+    user: User
+    users: Users
+    io: Server
+    status: UserStatus
+    chatId: string
+}) => {
     users[user.id].status = status
     users[user.id].chatroomId = chatId
     io.sockets.connected[user.socketId].join(chatId)
     return users
 }
 
-const resetPlayerState = ({ user, users }) => {
+export const resetPlayerState = ({
+    user,
+    users
+}: {
+    user: User
+    users: Users
+}) => {
     users[user.id].status = UserStatus.FREE
     users[user.id].chatroomId = null
     return users
 }
 
-const localIps = ['127.0.0.1', '::ffff:127.0.0.1', '::1', '1']
+export const localIps = ['127.0.0.1', '::ffff:127.0.0.1', '::1', '1']
 
-const isInternalIp = ip => {
+export const isInternalIp = (ip: string) => {
     return ip.split('.')[0] === '10'
 }
 
-const getClientIp = socket => {
+export const getClientIp = (socket: Socket) => {
     let ip = socket.request.connection.remoteAddress
     ip = ip.split(':').pop() //* in case it's an ipv6 address
     if (isInternalIp(ip)) {
@@ -56,8 +81,14 @@ const getClientIp = socket => {
     return ip
 }
 
-const createUserWithLocation = ({ name, socket }) =>
-    new Promise((resolve, reject) => {
+export const createUserWithLocation = ({
+    name,
+    socket
+}: {
+    name: string
+    socket: Socket
+}) =>
+    new Promise<User>((resolve, reject) => {
         let ip = getClientIp(socket)
         const isLocal = localIps.some(value => {
             return value === ip
@@ -70,28 +101,17 @@ const createUserWithLocation = ({ name, socket }) =>
 
         iplocation(ip, [])
             .then(res => {
-                const user = createUser({
+                const user = createUser(
                     name,
+                    socket.id,
                     ip,
-                    socketId: socket.id,
-                    countryCode: res.countryCode,
-                    latitude: res.latitude,
-                    longitude: res.longitude
-                })
+                    res.countryCode,
+                    res.latitude,
+                    res.longitude
+                )
                 resolve(user)
             })
             .catch(err => {
                 reject(err)
             })
     })
-
-module.exports = {
-    isNameInUse,
-    addUser,
-    removeUser,
-    isUserFree,
-    setPlayerState,
-    resetPlayerState,
-    createUserWithLocation,
-    getClientIp
-}

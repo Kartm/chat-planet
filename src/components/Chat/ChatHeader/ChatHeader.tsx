@@ -2,8 +2,14 @@ import React from 'react'
 import './ChatHeader.css'
 import Flag from '../../reusable/Flag/Flag'
 import SepiaButton from '../../reusable/SepiaButton/SepiaButton'
+import { User } from '../../../models/User.interface'
 
-const ChatHeader = props => {
+type ChatHeaderProps = {
+    partner: User | null;
+    onChatLeave: () => void;
+}
+
+const ChatHeader = (props: ChatHeaderProps) => {
     let { partner, onChatLeave } = props
     if (partner) {
         return (

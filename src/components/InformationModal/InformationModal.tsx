@@ -3,11 +3,16 @@ import Modal from '../Modal/Modal'
 import SepiaButton from '../reusable/SepiaButton/SepiaButton'
 import './InformationModal.css'
 
-const InvitationModal = props => {
+type InformationModalProps = {
+    onClose: () => void;
+    information: string | null;
+}
+
+const InvitationModal = (props: InformationModalProps) => {
     const { onClose, information } = props
 
     return (
-        information && (
+        information ? (
             <Modal>
                 <div className='information'>
                     <div className='information-header'>
@@ -26,7 +31,7 @@ const InvitationModal = props => {
                     </div>
                 </div>
             </Modal>
-        )
+        ) : null
     )
 }
 

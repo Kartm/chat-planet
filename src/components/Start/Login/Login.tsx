@@ -2,13 +2,22 @@ import React, { Component } from 'react'
 import './Login.css'
 import SepiaInput from '../../reusable/SepiaInput/SepiaInput'
 import SepiaButton from '../../reusable/SepiaButton/SepiaButton'
-import { LOGIN_ATTEMPT, LOGIN_RESPONSE } from '../../../Server/Events'
-import { Tabs } from '../../App/Enums'
+import { Events } from '../../../models/Events.enum'
+import { Tabs } from '../../../models/Tabs.enum'
+import { Socket } from 'socket.io'
+import { User, Users } from '../../../models/User.interface'
 
-class About extends Component {
-    state = { name: null, loginError: String.fromCharCode(160) }
+type AboutProps = {
+    socket: Socket | null;
+    setUsers: (users: Users) => void;
+    setTab: (tab: Tabs) => void;
+    setUser: (user: User) => void;
+}
 
-    onInputChange = value => {
+class About extends Component<AboutProps> {
+    state = { name: null as string | null, loginError: String.fromCharCode(160) }
+
+    onInputChange = (value: string) => {
         this.setState({ name: value })
     }
 
@@ -40,37 +49,40 @@ class About extends Component {
 
     onLoginAttempt = () => {
         const { socket } = this.props
-        if (this.verifyLogin()) {
+        if (this.verifyLogin() && socket) {
             const data = {
                 name: this.state.name
             }
 
-            socket.emit(LOGIN_ATTEMPT, data)
+            socket.emit(Events.LOGIN_ATTEMPT, data)
         }
     }
 
     componentDidMount() {
         const { socket } = this.props
-        socket.on(LOGIN_RESPONSE, ({ response }) => {
-            if (response.error === null) {
-                this.props.setUsers(response.users)
-                this.props.setTab(Tabs.WORLDMAP)
-                this.props.setUser(response.user)
-            } else {
-                this.setState({
-                    loginError: response.error
-                })
-            }
-        })
+        
+        if(socket) {
+            socket.on(Events.LOGIN_RESPONSE, ({ response }) => {
+                if (response.error === null) {
+                    this.props.setUsers(response.users)
+                    this.props.setTab(Tabs.WORLDMAP)
+                    this.props.setUser(response.user)
+                } else {
+                    this.setState({
+                        loginError: response.error
+                    })
+                }
+            })
+        }
     }
 
     render() {
         return (
-            <div className='login'>
+            <div className="login">
                 <form>
                     <p>Your name:</p>
                     <SepiaInput onInputChange={this.onInputChange} />
-                    <p className='login-error'>{this.state.loginError}</p>
+                    <p className="login-error">{this.state.loginError}</p>
                     <SepiaButton onClick={() => this.onLoginAttempt()}>
                         LOGIN
                     </SepiaButton>

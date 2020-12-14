@@ -3,8 +3,15 @@ import Modal from '../Modal/Modal'
 import SepiaButton from '../reusable/SepiaButton/SepiaButton'
 import Flag from '../reusable/Flag/Flag'
 import './InvitationModal.css'
+import Invitation from '../../models/Invitation'
 
-const InvitationModal = props => {
+type InvitationModalProps = {
+    onAccept: () => void;
+    onClose: () => void;
+    invitation: Invitation | null;     
+}
+
+const InvitationModal = (props: InvitationModalProps) => {
     const { onAccept, onClose, invitation } = props
     if (invitation === null) return null
 

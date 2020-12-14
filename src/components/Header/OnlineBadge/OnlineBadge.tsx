@@ -1,7 +1,11 @@
 import React from 'react'
 import './OnlineBadge.css'
 
-const OnlineBadge = props => {
+type OnlineBadgeProps = {
+    amount: number;
+}
+
+const OnlineBadge = (props: OnlineBadgeProps) => {
     return (
         <React.Fragment>
             <div className='online-badge'>

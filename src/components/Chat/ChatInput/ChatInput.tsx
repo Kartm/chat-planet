@@ -1,14 +1,19 @@
-import React, { Component } from 'react'
+import React, { ChangeEvent, Component, FormEvent } from 'react'
 import './ChatInput.css'
 
-class ChatInput extends Component {
+type ChatInputProps = {
+    
+    onSend: ({value}: {value: string}) => void;
+}
+
+class ChatInput extends Component<ChatInputProps> {
     state = { value: '' }
 
-    onChange = e => {
+    onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         this.setState({ value: e.target.value })
     }
 
-    onSubmit = e => {
+    onSubmit = (e: FormEvent<HTMLFormElement> | FormEvent<HTMLTextAreaElement>) => {
         e.preventDefault()
         const { value } = this.state
         if (value !== '') {
@@ -17,7 +22,8 @@ class ChatInput extends Component {
         }
     }
 
-    onKeyDown = e => {
+    // TS Error: Type 'KeyboardEvent' is not generic.
+    onKeyDown = (e: any) => {
         if (e.keyCode === 13) {
             this.onSubmit(e)
         }
