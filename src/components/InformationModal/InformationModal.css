@@ -1,46 +1,46 @@
 .information {
-    color: #52565d;
-    background-color: rgb(221, 215, 187);
-    border: 3px solid #16181a;
-    border-radius: 4px;
-    padding: 12px;
-    padding-top: 4px;
+  color: #52565d;
+  background-color: rgb(221, 215, 187);
+  border: 3px solid #16181a;
+  border-radius: 4px;
+  padding: 12px;
+  padding-top: 4px;
 }
 
 .information-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
 }
 
 .information-header span {
-    margin-right: 5vmin;
-    margin-top: 1vmin;
-    font-weight: 700;
+  margin-right: 5vmin;
+  margin-top: 1vmin;
+  font-weight: 700;
 }
 
 .information-content {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .information-text {
-    margin: 2vmin 0;
-    text-align: center;
+  margin: 2vmin 0;
+  text-align: center;
 }
 
 .information-buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .sepia-button.information-close-button {
-    padding: 1px 6px;
+  padding: 1px 6px;
 }
 
 .sepia-button.accept {
-    background-color: rgb(141, 185, 115);
+  background-color: rgb(141, 185, 115);
 }

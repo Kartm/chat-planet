@@ -1,54 +1,54 @@
 .start-description {
-    color: #212325;
-    height: 25%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  color: #212325;
+  height: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .start-description p {
-    margin: auto;
+  margin: auto;
 }
 
 .start-footer {
-    text-align: center;
-    background-color: #212325;
-    border-bottom-left-radius: 0.9vh;
-    border-bottom-right-radius: 0.9vh;
-    padding: 8px;
-    color: rgb(221, 215, 187);
+  text-align: center;
+  background-color: #212325;
+  border-bottom-left-radius: 0.9vh;
+  border-bottom-right-radius: 0.9vh;
+  padding: 8px;
+  color: rgb(221, 215, 187);
 }
 
 .login > p {
-    padding: 2vmin;
+  padding: 2vmin;
 }
 
 .start-github {
-    margin: auto;
-    display: flex;
-    align-items: center;
+  margin: auto;
+  display: flex;
+  align-items: center;
 }
 
 .start-github .login-logo {
-    filter: contrast(0) brightness(0.3) sepia(100%);
-    margin: 1vmin;
-    width: auto;
-    height: 4vmin;
+  filter: contrast(0) brightness(0.3) sepia(100%);
+  margin: 1vmin;
+  width: auto;
+  height: 4vmin;
 }
 
 .start-github a {
-    display: inline;
-    font-size: 2vmin;
-    font-weight: 100;
-    align-self: center;
-    text-align: center;
+  display: inline;
+  font-size: 2vmin;
+  font-weight: 100;
+  align-self: center;
+  text-align: center;
 }
 
 .start-github a:link {
-    color: #8a680d;
-    text-decoration: none;
+  color: #8a680d;
+  text-decoration: none;
 }
 
 .start-github a:visited {
-    color: #504831;
+  color: #504831;
 }

@@ -1,18 +1,18 @@
 .online-badge {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    background-color: #00000048;
-    height: 22px;
-    white-space: nowrap;
-    padding-left: 5px;
-    padding-right: 5px;
-    margin: auto 2vmin;
-    border-radius: 20px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  background-color: #00000048;
+  height: 22px;
+  white-space: nowrap;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: auto 2vmin;
+  border-radius: 20px;
 }
 
 .online-badge-text {
-    display: block;
-    margin: auto;
-    font-size: 10px;
+  display: block;
+  margin: auto;
+  font-size: 10px;
 }

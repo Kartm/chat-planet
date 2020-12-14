@@ -1,7 +1,7 @@
 .flag {
-    display: inline-block;
-    image-rendering: pixelated;
-    height: 100%;
-    margin: 0 1vmin 0 1vmin;
-    border-radius: 15px;
+  display: inline-block;
+  image-rendering: pixelated;
+  height: 100%;
+  margin: 0 1vmin 0 1vmin;
+  border-radius: 15px;
 }

@@ -1,27 +1,27 @@
 .header {
-    display: flex;
-    grid-area: header;
-    background-color: #16181a;
+  display: flex;
+  grid-area: header;
+  background-color: #16181a;
 }
 
 .header-text {
-    font-weight: 900;
-    font-size: 2vw;
-    margin: auto 0 auto 1vw;
-    font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 2vw;
+  margin: auto 0 auto 1vw;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .header-user {
-    border-radius: 0.5vmin;
-    border: 1px solid rgb(211, 200, 180);
-    font-size: 0.7vmax;
-    padding-right: 1vmin;
-    align-self: center;
-    margin-left: auto;
-    margin-right: 2vmin;
+  border-radius: 0.5vmin;
+  border: 1px solid rgb(211, 200, 180);
+  font-size: 0.7vmax;
+  padding-right: 1vmin;
+  align-self: center;
+  margin-left: auto;
+  margin-right: 2vmin;
 }
 
 .header-user > .flag {
-    height: 1.5vmax;
-    width: auto;
+  height: 1.5vmax;
+  width: auto;
 }

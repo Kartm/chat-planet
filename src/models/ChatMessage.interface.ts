@@ -1,6 +1,6 @@
-import { User } from './User.interface'
+import { User } from './User.interface';
 
 export interface ChatMessage {
-    who: User
-    content: string
+  who: User;
+  content: string;
 }

@@ -1,15 +1,15 @@
 .message {
-    display: flex;
-    height: auto;
-    width: calc(100% - 2em);
+  display: flex;
+  height: auto;
+  width: calc(100% - 2em);
 }
 
 .message > span {
-    padding: 1vmin;
-    background-color: #00000041;
-    margin-top: 0.8vh;
-    margin-bottom: 0.8vh;
-    border-radius: 12px;
-    max-width: 98%;
-    overflow-wrap: break-word;
+  padding: 1vmin;
+  background-color: #00000041;
+  margin-top: 0.8vh;
+  margin-bottom: 0.8vh;
+  border-radius: 12px;
+  max-width: 98%;
+  overflow-wrap: break-word;
 }

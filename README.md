@@ -14,7 +14,9 @@ My goal was to learn the basics of socket.io and to create a visually appealing 
 ![img](https://github.com/Kartm/chat-planet/blob/master/src/resources/github/screenshot.jpg?raw=true)
 
 # Technologies/API's used
+
 **Built with**:
+
 - React
 - LeafletJS
 - iplocation

@@ -1,23 +1,23 @@
 .login {
-    display: flex;
-    position: absolute;
-    align-self: center;
-    justify-content: center;
-    flex-direction: column;
-    font-family: 'Montserrat', sans-serif;
+  display: flex;
+  position: absolute;
+  align-self: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .login-country {
-    margin: 0 0 24px 0;
+  margin: 0 0 24px 0;
 }
 
 .login-country > .flag {
-    width: 4vh;
-    height: auto;
+  width: 4vh;
+  height: auto;
 }
 
 .login-error {
-    margin: 0 0 12px 0;
-    font-size: 1vmin;
-    color: rgb(243, 116, 116);
+  margin: 0 0 12px 0;
+  font-size: 1vmin;
+  color: rgb(243, 116, 116);
 }
